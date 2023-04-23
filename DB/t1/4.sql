@@ -48,3 +48,5 @@ CREATE TABLE Peliculas_Cliente
   FOREIGN KEY (codigo_pelicula) REFERENCES pelicula(codigo_pelicula),
   FOREIGN KEY (cedula) REFERENCES cliente(cedula)
 );
+
+-- comandos para agregar cosas
