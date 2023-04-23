@@ -11,8 +11,8 @@ telefono VARCHAR(10)
 DROP TABLE IF EXISTS sala CASCADE;
 CREATE TABLE sala
 (
-numero_sala VARCHAR(4) NOT NULL PRIMARY KEY,
-piso VARCHAR(2) NOT NULL,
+numero_sala VARCHAR(3) NOT NULL PRIMARY KEY,
+piso VARCHAR(3) NOT NULL,
 capacidad INTEGER
 );
 
@@ -32,8 +32,8 @@ CREATE TABLE proyeccion
 (
   numero_sala VARCHAR(4) NOT NULL,
   codigo_pelicula VARCHAR(10) NOT NULL,
-  fecha VARCHAR(15),
-  hora VARCHAR(10),
+  fecha VARCHAR(10),
+  hora VARCHAR(6),
   FOREIGN KEY (codigo_pelicula) REFERENCES pelicula(codigo_pelicula),
   FOREIGN KEY (numero_sala) REFERENCES sala(numero_sala)
 );
