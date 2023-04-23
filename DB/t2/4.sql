@@ -51,11 +51,11 @@ CREATE TABLE pelicula_cliente
 
 -- comandos para agregar cosas
 
-INSERT INTO cliente(cedula,nombre,direccion,telefono) VALUES('1111111111','jon','calle 6 3-23','1123456')
-INSERT INTO cliente VALUES('1111111112','mike','calle 7 32-34','112347')
-INSERT INTO cliente VALUES('1111111113','mike','calle 8 3-35','112348')
-INSERT INTO cliente VALUES('1111111114','mike','calle 9 3-36','112349')
-INSERT INTO cliente VALUES('1111111115','mike','calle 0 3-37','112340')
+INSERT INTO cliente(cedula,nombre,direccion,telefono) VALUES('1111111111','jon','calle 1 3-23','1123456')
+INSERT INTO cliente VALUES('1111111112','mike','calle 2 32-34','112347')
+INSERT INTO cliente VALUES('1111111113','dina','calle 3 43-35','112348')
+INSERT INTO cliente VALUES('1111111114','lucy','calle 4 12-36','112349')
+INSERT INTO cliente VALUES('1111111115','kevin','calle 5 65-37','112340')
 
 INSERT INTO sala(numero_sala,piso,capacidad) VALUES('1','1',30)
 INSERT INTO sala VALUES('2','1',30)
