@@ -69,4 +69,13 @@ INSERT INTO pelicula VALUES('1236','speed','action','steven')
 INSERT INTO pelicula VALUES('1237','instance','drama','summer')
 INSERT INTO pelicula VALUES('1238','godless','fantasy','yamamoto')
 
+INSERT INTO proyeccion (numero_sala,codigo_pelicula,fecha,hora) VALUES('1','1234','14/04/2023','13:00') 
+INSERT INTO proyeccion VALUES('1','1234','14/04/2023','13:00')
+INSERT INTO proyeccion VALUES('1','1234','14/04/2023','13:00')
+INSERT INTO proyeccion VALUES('1','1234','14/04/2023','13:00')
+INSERT INTO proyeccion VALUES('1','1234','14/04/2023','13:00')
 
+ numero_sala VARCHAR(4) NOT NULL,
+  codigo_pelicula VARCHAR(10) NOT NULL,
+  fecha VARCHAR(15),
+  hora VARCHAR(10),
