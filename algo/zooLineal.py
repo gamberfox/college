@@ -20,8 +20,12 @@ def zooLineal(n, m, k):
 
 test=[["ds",23],["sd",3]]
 
-def countSort(s):
-    conteo=[[None]]*len(s)
-    salida=[[None,None]]*len(s)
+def countSort(s):#organiza la lista de mayor a menor
+    #con respecto
+    l=len(s)
+    conteo=[[None]]*l
+    salida=[[None,None]]*l
+    for i in range(l):
+        print(2)
     return salida
 print(countSort(test))
