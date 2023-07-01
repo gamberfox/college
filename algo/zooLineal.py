@@ -18,14 +18,35 @@ def zooLineal(n, m, k):
 
     return escenas
 
-test=[["ds",23],["sd",3]]
+test=[["1",1],["2",2],["3",3],["11",1],["22",2],["33",3]]
 
 def countSort(s):#organiza la lista de mayor a menor
-    #con respecto
+    #con respecto al segundo elemento de cada lista, el cual representa el tamaño
+    #el valor del mayor numero que habra en la lista esta acotado por n, ya que el
+    #tamaño del animal varia desde 1 hasta n, como nos lo indica el problema
     l=len(s)
-    conteo=[[None]]*l
-    salida=[[None,None]]*l
+    conteo=[0]*l
+    salida=[["None",0]]*l
     for i in range(l):
-        print(2)
+        conteo[s[i][1]-1]+=1
+    acumulativa=conteo[0]
+    for i in range(1,len(conteo)):
+        conteo[i]+=acumulativa
+        acumulativa=conteo[i]
+    print(conteo)
+    print(salida)
+    for i in range(l):
+        print(conteo[s[i][1]])
+        print(s[i][0]) 
+        salida[i][0]=s[conteo[s[i][1]]-1][0]
+        salida[i][1]=s[conteo[s[i][1]]-1][1]
+        conteo[s[i][1]]-=1
+        print(salida)
+    for i in range(l):
+        salida[i][1]=i
     return salida
-print(countSort(test))
+#print(countSort(test))
+t=[None]*6
+for i in range(4):
+    t[i]=i
+print(t)
