@@ -44,8 +44,46 @@ def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 ele
     return s
 #print(sortScene([["pig",1],["loro",2],["ant",3],["oso",4],["kuma",5]]))
 
-def sortPart(s):
-    return s
+def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar
+    
+    countN=[0 for i in range(n)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
+    salida=[["None",0] for i in range(l)]
+    for i in range(l):
+        countN[s[i][1]-1]+=1
+    acumulativa=countN[0]
+    for i in range(1,len(countN)):
+        countN[i]+=acumulativa
+        acumulativa=countN[i]
+    for i in range(len(countN)):
+        countN[i]=countN[i]-1
+    for i in reversed(range(l)):
+        salida[countN[s[i][1]-1]][0]=s[i][0]
+        salida[countN[s[i][1]-1]][1]=s[i][1]
+        countN[s[i][1]-1]-=1
+    return salida
+aaa=[[['ant', 3], ['loro', 2], ['pig', 1]], [['hebi', 6], ['kuma', 5], ['bear', 4]], [['ant', 3], ['loro', 2], ['pig', 1]]]
+
+def sortPart(s,n):#esta solucion hara que la solucion sea increiblemente ineficiente cuando
+    #se organize con numeros pequeños, estaremos usando una combinacion del algoritmo
+    #radix-sort con counting-sort
+    countS=[0 for i in range(n)]
+
+    l=len(s)
+    countN=[0 for i in range(n)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
+    salida=[["None",0] for i in range(l)]
+    for i in range(l):
+        countN[s[i][1]-1]+=1
+    acumulativa=countN[0]
+    for i in range(1,len(countN)):
+        countN[i]+=acumulativa
+        acumulativa=countN[i]
+    for i in range(len(countN)):
+        countN[i]=countN[i]-1
+    for i in reversed(range(l)):
+        salida[countN[s[i][1]-1]][0]=s[i][0]
+        salida[countN[s[i][1]-1]][1]=s[i][1]
+        countN[s[i][1]-1]-=1
+    return salida
 
 
 #size=s[0][0][0]+s[0][0][1]+s[0][0][2]
@@ -124,9 +162,9 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     for i in range(1,len(resultado)):
         print("parte "+str(i)+":")
         print(resultado[i])
-    print(len(resultado))
     print('sdds')
-    print(smallScene)
+    print(fullResultado[1])
+    print(participacionAnimal)
 test=[["1",1],["2",2],["3s",3],["11",2],["22",6],["33",1],["sdsd",5]]
 
 
