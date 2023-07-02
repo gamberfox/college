@@ -41,9 +41,18 @@ def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 ele
     return s
 #print(sortScene([["pig",1],["loro",2],["ant",3],["oso",4],["kuma",5]]))
 
+def sortPart(s):
+    return s
+
+
+#size=s[0][0][0]+s[0][0][1]+s[0][0][2]
+def sizeScene(s):
+    size=s[0][1]+s[1][1]+s[2][1]
+    return size
+
 #ya que no se el valor de n, en la lista de animales cada animal tendra el mismo nombre
 #que su peso
-a = [0 for i in range(4)]
+a = [0 for i in range(4)]#a = [str(i) for i in range(4)]
 print(a)
 animales1=[["pig",1],["loro",2],["ant",3],["bear",4],["kuma",5],["hebi",6],["lobo",7]]
 def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes que proceden a la apertura
@@ -54,8 +63,8 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     resultado=[]
     fullResultado=[]
     participacionAnimal=[0 for i in range(n)]
-    escenaGrande=[["vacio",0],["vacio",0],["vacio",0]]
-    escenaPequeña=[["vacio",0],["vacio",0],["vacio",0]]
+    smallScene=[]
+    bigScene=[]
     
     indexAnimales=0
     # Primera parte: (m - 1) * k escenas:   O(km   )
@@ -70,6 +79,20 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
             escena.append(animal[0])
             fullEscena.append(animal)
         fullEscena=sortScene(fullEscena)
+
+        if(i==0):#estamos buscando la escena mas grande y pequeña
+            smallScene.append(fullEscena)
+            bigScene.append(fullEscena)
+        if(sizeScene(fullEscena)==sizeScene(smallScene[0])):
+            smallScene.append(fullEscena)
+        if(sizeScene(fullEscena)<sizeScene(smallScene[0])):
+            smallScene=[fullEscena]
+
+        if(sizeScene(fullEscena)==sizeScene(bigScene[0])):
+            bigScene.append(fullEscena)
+        if(sizeScene(fullEscena)>sizeScene(bigScene[0])):
+            bigScene=[fullEscena]
+        
 
         for i in range(3):
             escena[i]=fullEscena[i][0]
@@ -99,6 +122,8 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
         print("parte "+str(i)+":")
         print(resultado[i])
     print(len(resultado))
+    print('sdds')
+    print(smallScene)
 test=[["1",1],["2",2],["3s",3],["11",2],["22",6],["33",1],["sdsd",5]]
 
 
