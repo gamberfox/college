@@ -21,6 +21,9 @@ def countSort(s):#organiza la lista de mayor a menor
         conteo[s[i][1]-1]-=1
     return salida
 
+def sortParte(s,n):
+    return true
+
 def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 elementos).O(3)
     #ya que la entrada nunca superara un tamaño de 3, sera mas efectivo organizar la lista usando
     #un algoritmo de comparacion, ya que su tiempo de ejecucion sera menor comparado con algo como counting-sort.
