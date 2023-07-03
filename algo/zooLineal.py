@@ -157,6 +157,7 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     menosParticipaciones=0
     smallScene=[]
     bigScene=[]
+    allSceneSizes=[0,0]
 
     fullAnimales=[]
     
@@ -172,6 +173,8 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
             if(indexAnimales>=len(animales) or indexAnimales>=n):
                 indexAnimales=0
             fullEscena.append(animal)
+            allSceneSizes[0]+=animal[1]######escena promedio
+        allSceneSizes[1]+=1
         fullEscena=sortScene(fullEscena)
 
         if(i==0):#estamos buscando la escena mas grande y pequeña
@@ -213,6 +216,9 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
             fullPartes.append(fullEscena)
             for i in range(3):
                 participacionAnimal[fullEscena[i][1]-1]+=1##seguimos contando animales
+                allSceneSizes[0]+=fullEscena[i][1]#####calculando promedio
+            allSceneSizes[1]+=1#####calculando promedio
+            
         fullPartes=auxSortPart(fullPartes,n,0)
         fullPartes=auxSortPart(fullPartes,n,1)
         fullPartes=auxSortPart(fullPartes,n,2)
@@ -260,7 +266,7 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     menosParticipaciones=participaciones
     print("-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
     print(fullAnimal)
-
+    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
     print("\n esta es la apertura:")
     print(resultado[0])
     print("estas son el resto de las partes:")
@@ -272,6 +278,5 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     print(participacionAnimal)
     print(fullResultado[1:])
 test=[["1",1],["2",2],["3s",3],["11",2],["22",6],["33",1],["sdsd",5]]
-
 
 zooLineal(8,3,3,animales1)
