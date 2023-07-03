@@ -33,7 +33,6 @@ def sortPart(s,n):
     s=auxSortPart(s,n,1)
     s=auxSortPart(s,n,2)
     print("sorted")
-    print(s)
     for i in range(len(s)):
         sceneSize=0
         for j in range(3):
@@ -60,7 +59,6 @@ def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
     l=3*n*k
     countN=[0 for i in range(l)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
     salida=[[[["None",0],["None",0],["None",0]] for i in range(k)] for i in range(len(p))]
-    print(salida)
     print(p)
     print("sorted")
     for i in range(len(p)):
@@ -86,9 +84,12 @@ def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
     salida=salida[::-1]
     return salida
 aaa=[[['gato', 8], ['lobo', 7], ['pig', 1]], [['hebi', 6], ['kuma', 5], ['bear', 4]]]
-aa=[[[['gato', 8], ['lobo', 7], ['pig', 1]], [['hebi', 6], ['kuma', 5], ['bear', 4]]],
-    [[['bear', 4], ['ant', 3], ['loro', 2]], [['ant', 3], ['loro', 2], ['pig', 1]]],
-    [[['zou', 9], ['ant', 3], ['loro', 2]], [['buta', 10], ['gato', 8], ['pig', 1]]]]
+ss=[[['gato', 8], ['asd', 6], ['pig', 2]],
+     [['hebi', 6], ['kuma', 5], ['bear', 4]],
+     [['gato', 8], ['lobo', 5], ['pig', 3]]]
+aa=[[[['gato', 4], ['lobo', 4], ['pig', 4]], [['hebi', 8], ['kuma', 8], ['bear', 8]]],
+    [[['bear', 3], ['ant', 3], ['loro', 3]], [['ant', 3], ['loro', 2], ['pig', 1]]],
+    [[['zou', 6], ['ant', 6], ['loro', 6]], [['buta', 10], ['gato', 8], ['pig', 8]]]]
 #print(auxSortPart(aaa,8,0))
 #print(auxSortPart(aaa,8,1))
 #print(auxSortPart(aaa,8,2))
@@ -99,5 +100,5 @@ def buscarAnimal(n,a):
     for i in range(len(a)):
         if(n==a[i][1]):
             return a[i]
-print(buscarAnimal(4,animales1))
-#print(sortPartes(aa,10,2))
+#print(sortPart(ss,9))
+print(sortPartes(aa,10,2))

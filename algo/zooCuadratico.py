@@ -26,31 +26,45 @@ def countSort(s):#organiza la lista de mayor a menor
     return salida
 
 def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
-    l=3*n*k
-    countN=[0 for i in range(l)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
-    salida=[[[["None",0],["None",0],["None",0]] for i in range(k)] for i in range(len(p))]
-    for i in range(len(p)):
+    ###################afjañldfkjañslkdjñlfjñldfjalñsfkdjaslñdf. el problema es que ya estaba recorriendo un i, y cree otro rango con ese i, 3-4 horas xdxdxd
+    ans=[[[["None",0],["None",0],["None",0]] for i in range(k)] for i in range(len(p))]
+    ans=p.copy()
+    sumScene1=0
+    sumScene2=0
+    if(len(p)<2):
+        return p
+    for j in range(k):
+            for o in range(3):
+                sumScene1+=ans[0][j][o][1]
+    for j in range(k):
+            for o in range(3):
+                sumScene2+=ans[1][j][o][1]
+    if(sumScene1>sumScene2):
+         ans[0]=p[0]
+         ans[1]=p[1]
+    else:
+         ans[0]=p[1]
+         ans[1]=p[0]
+    for i in range(1,len(p)):
+        if(len(ans)==2):
+            return ans
+        insertion=ans.copy()[i]
         sceneSize=0
         for j in range(k):
-            for o in range(3):
-                sceneSize+=p[i][j][o][1]
-        countN[sceneSize]+=1
-    acumulativa=countN[0]
-    for i in range(1,len(countN)):
-        countN[i]+=acumulativa
-        acumulativa=countN[i]
-    for i in range(len(countN)):
-        countN[i]=countN[i]-1
-    for i in reversed(range(len(p))):
-        sceneSize=0
-        for j in range(k):
-            for o in range(3):
-                sceneSize+=p[i][j][o][1]
-        countN[sceneSize]
-        salida[countN[sceneSize]]=p[i]
-        countN[sceneSize]-=1
-    salida=salida[::-1]
-    return salida
+                for o in range(3):
+                    sceneSize+=insertion[j][o][1]
+        for j in reversed(range(1,i+1)):
+            oScene=0
+            aux=ans.copy()[j-1]
+            for o in range(k):
+                for h in range(3):
+                    oScene+=ans[j-1][o][h][1]
+            if(sceneSize>oScene):
+                #ans[j]=ans[j-1]
+                #ans[j-1]=insertion
+                ans[j-1]=insertion
+                ans[j]=aux
+    return ans
 
 def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 elementos).O(3)
     #ya que la entrada nunca superara un tamaño de 3, sera mas efectivo organizar la lista usando
@@ -104,32 +118,19 @@ def sortPart(s,n):
     l=3*n-3
     countN=[0 for i in range(l)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
     salida=[[["None",0],["None",0],["None",0]] for i in range(len(s))]
-    s=auxSortPart(s,n,0)
-    s=auxSortPart(s,n,1)
     s=auxSortPart(s,n,2)
-    for i in range(len(s)):
-        sceneSize=0
-        for j in range(3):
-            sceneSize+=s[i][j][1]
-        countN[sceneSize-1]+=1
-    acumulativa=countN[0]
-    for i in range(1,len(countN)):
-        countN[i]+=acumulativa
-        acumulativa=countN[i]
-    for i in range(len(countN)):
-        countN[i]=countN[i]-1
-    for i in reversed(range(len(s))):
-        sceneSize=0
-        for j in range(3):
-            sceneSize+=s[i][j][1]
-        salida[countN[sceneSize-1]][0]=s[i][0]
-        salida[countN[sceneSize-1]][1]=s[i][1]
-        salida[countN[sceneSize-1]][2]=s[i][2]
-        countN[sceneSize-1]-=1
-    salida=salida[::-1]
+    s=auxSortPart(s,n,1)
+    s=auxSortPart(s,n,0)
+    salida=s.copy()[::-1]
+    for i in (range(1,len(salida))):
+        key=s[i][0]+s[i][1]+s[i][2]
+        keyS=s[i]
+        ii=i-1
+        while(ii>0 and (s[i][0]+s[i][1]+s[i][2])>key):
+            s[ii+1]=s[ii]
+            ii-=1
+        salida[ii+1]=keyS
     return salida
-
-
 #size=s[0][0][0]+s[0][0][1]+s[0][0][2]
 def sizeScene(s):
     size=s[0][1]+s[1][1]+s[2][1]
@@ -141,7 +142,7 @@ def sizeScene(s):
 a = [0 for i in range(4)]#a = [str(i) for i in range(4)]
 animales1=[["pig",1],["loro",2],["ant",3],["bear",4],["kuma",5],["hebi",6],["lobo",7],["gato",8]]
 animales2=[["bear",1],["bird",2],["tori",3],["boar",4],["oso",5],["snake",6],["dog",7],["cat",8]]
-def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes que proceden a la apertura
+def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las partes que proceden a la apertura
     ###animales = [str(i) for i in range(1, n + 1)]  # creamos la lista de animales, el animal se llama igual que su tamaño
     apertura=[['animal','animal','animal'] for i in range((m-1)*k)]
     fullApertura=[]
@@ -225,6 +226,7 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
         fullResultado.append(fullPartes)
     
     fullPartes=fullResultado.copy()[1::]
+    #print(fullPartes)
     fullPartes=sortPartes(fullPartes,n,k)
     for i in range(1,len(fullResultado)):
         fullResultado[i]=fullPartes[i-1]
@@ -261,6 +263,7 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     menosParticipaciones=participaciones
+    #print(fullResultado[0])
     #print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
     #print(fullAnimal)
     #print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
@@ -270,4 +273,4 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     #for i in range(1,len(resultado)):
         #print("parte "+str(i+1)+":")
         #print(resultado[i])
-zooLineal(8,2,2,animales2)
+zooCuadratico(8,4,4,animales2)
