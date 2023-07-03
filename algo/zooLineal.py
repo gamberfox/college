@@ -143,6 +143,7 @@ def sizeScene(s):
 #que su peso
 a = [0 for i in range(4)]#a = [str(i) for i in range(4)]
 animales1=[["pig",1],["loro",2],["ant",3],["bear",4],["kuma",5],["hebi",6],["lobo",7],["gato",8]]
+animales2=[["bear",1],["bird",2],["tori",3],["boar",4],["oso",5],["snake",6],["dog",7],["cat",8]]
 def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes que proceden a la apertura
     ###animales = [str(i) for i in range(1, n + 1)]  # creamos la lista de animales, el animal se llama igual que su tamaño
     apertura=[['animal','animal','animal'] for i in range((m-1)*k)]
@@ -264,7 +265,7 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     menosParticipaciones=participaciones
-    print("-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
+    print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
     print(fullAnimal)
     print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
     print("\n esta es la apertura:")
@@ -277,6 +278,4 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     print(fullResultado[0])
     print(participacionAnimal)
     print(fullResultado[1:])
-test=[["1",1],["2",2],["3s",3],["11",2],["22",6],["33",1],["sdsd",5]]
-
-zooLineal(8,3,3,animales1)
+zooLineal(8,3,3,animales2)
