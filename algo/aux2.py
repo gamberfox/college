@@ -25,21 +25,22 @@ def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar
     return salida
 def sortPart(s,n):
     l=3*n-3
-    countN=[0 for i in range(l)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
     salida=[[["None",0],["None",0],["None",0]] for i in range(len(s))]
     s=auxSortPart(s,n,2)
     s=auxSortPart(s,n,1)
     s=auxSortPart(s,n,0)
-    salida=s.copy()[::-1]
-    for i in (range(1,len(salida))):
-        key=s[i][0]+s[i][1]+s[i][2]
+    print(s)
+    for i in reversed(range(1,len(s))):
+        key=s[i][0][1]+s[i][1][1]+s[i][2][1]
         keyS=s[i]
         ii=i-1
-        while(ii>0 and (s[i][0]+s[i][1]+s[i][2])>key):
-            s[ii+1]=s[ii]
+        x=i
+        while(x>0 and (s[ii][0][1]+s[ii][1][1]+s[ii][2][1])<key):
+            s[x]=s[ii]
+            s[ii]=keyS
             ii-=1
-        salida[ii+1]=keyS
-    return salida
+            x-=1
+    return s
 
 
 def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
@@ -112,6 +113,9 @@ p=[[[['gato', 4], ['lobo', 3], ['pig', 5]], [['hebi', 4], ['kuma', 2], ['bear', 
     [[['larry', 9], ['ant', 8], ['loro', 7]], [['buta', 799], ['gato', 8], ['pig', 9]]],
     [[['zoo', 1], ['ant', 2], ['loro', 2]], [['buta', 2], ['gato', 1], ['pig', 2]]]
     ]
+o=[[['boar', 4], ['tori', 3], ['bear', 1]], [['oso', 5], ['bird', 2], ['bear', 1]],
+   [['boar', 4], ['bird', 2], ['bear', 1]], [['tori', 3], ['bird', 2], ['bear', 1]]]
 #print(sortPart(aaa,9))
-print(sortPartes(p,9,2))
+#print(sortPartes(p,9,2))
 #print(ala(pp,9,2))
+print(sortPart(o,9))

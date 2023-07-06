@@ -305,4 +305,4 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
         print(fullResultado[i])
-zooLineal(8,6,6,animales2)
+zooLineal(8,4,4,animales2)
