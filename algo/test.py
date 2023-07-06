@@ -27,12 +27,25 @@ promedio=[0,0,0,0,0,0,0,0,0,0]
 
 tamaño=100
 promedio=[0,0,0,0,0,0,0,0,0,0]
-for i in range(10):
+""" for i in range(10):
     for j in range(10):
         aa = time.time()
-        zooCuadratico.zooCuadratico(7,100,tamaño,a1)
+        zooCuadratico.zooCuadratico(7,tamaño,tamaño,a1)
         a=time.time()-aa
         promedio[i]+=a
     promedio[i]=promedio[i]/10
     tamaño+=100
-    print("prueba cuadratica"+str(i+1)+":  "+str(a))
+    print("prueba cuadratica"+str(i+1)+":  "+str(a)) """
+
+""" tamaño=1100
+for j in range(10):
+        aa = time.time()
+        zooCuadratico.zooCuadratico(7,tamaño,tamaño,a1)
+        a=time.time()-aa
+        promedio[9]+=a
+promedio[9]=promedio[9]/10 """
+tamaño=1000
+aa = time.time()
+zooCuadratico.zooCuadratico(7,tamaño,tamaño,a1)
+a=time.time()-aa
+print(a)

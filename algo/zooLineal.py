@@ -159,20 +159,49 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
 
     fullAnimales=[]
     
-    indexAnimales=0
+    #######estos indices nos ayudaran a poner los animales en las escenas
+    indexAnimales0=0
+    indexAnimales1=1
+    indexAnimales2=2
     # Primera parte: (m - 1) * k escenas:   O(km   )
     for i in range((m - 1) * k):#O(n)
         escena = []
         fullEscena=[]
-        for j in range(3):
-            animal=animales[indexAnimales]
-            participacionAnimal[animal[1]-1]+=1##contando la participacion
-            indexAnimales+=1
-            if(indexAnimales>=len(animales) or indexAnimales>=n):
-                indexAnimales=0
-            fullEscena.append(animal)
-            allSceneSizes[0]+=animal[1]######escena promedio
-        allSceneSizes[1]+=1
+
+
+        animal=animales[indexAnimales0]
+        participacionAnimal[animal[1]-1]+=1##contando la participacion
+        fullEscena.append(animal)
+        allSceneSizes[0]+=animal[1]######escena promedio
+
+        animal=animales[indexAnimales1]
+        participacionAnimal[animal[1]-1]+=1##contando la participacion
+        fullEscena.append(animal)
+        allSceneSizes[0]+=animal[1]######escena promedio
+        animal=animales[indexAnimales2]
+        participacionAnimal[animal[1]-1]+=1##contando la participacion
+        indexAnimales2+=1
+        fullEscena.append(animal)
+        allSceneSizes[0]+=animal[1]######escena promedio
+
+        if(indexAnimales2>=len(animales) or indexAnimales2>=n):#si llegamos a todas las combinaciones, los indices se resetearan
+            if(indexAnimales1>=len(animales)-2 or indexAnimales1>=(n-2)):
+                if(indexAnimales0>=len(animales)-3 or indexAnimales0>=(n-3)):##en este punto tengo la opcion de mandar un error porque ya hice todas las combinaciones
+                    indexAnimales0=0
+                    indexAnimales1=1
+                    indexAnimales2=2
+                else:
+                    indexAnimales0+=1
+                    indexAnimales1=indexAnimales0+1
+                    indexAnimales2=indexAnimales0+2
+            else:
+                indexAnimales1+=1
+                indexAnimales2=indexAnimales1+1
+
+
+
+        
+        allSceneSizes[1]+=1##aumentamos en 1 el numero de escenas
         fullEscena=sortScene(fullEscena)
 
         if(i==0):#estamos buscando la escena mas grande y pequeña
@@ -240,21 +269,21 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
 
     ####vamos a ver cual es el animal que mas participo
     ##ahora pondremos el fullResultado en forma de respuesta
-    fullAnimal=["animal",2]
+    AniParti=["animal",2]
     participaciones=0
     for i in range(len(animales)):##len(n) si queremos ignorar animales que no apareceran
         if(participacionAnimal[i]==participaciones):
-            fullAnimal.append(buscarAnimal(i+1,animales))
+            AniParti.append(buscarAnimal(i+1,animales))
         elif(participacionAnimal[i]>participaciones):
-            fullAnimal=[buscarAnimal(i+1,animales)]
+            AniParti=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     masParticipaciones=participaciones
-    ###########print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
-    ############print(fullAnimal)
+    #print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
+    #print(AniParti)
 
     fullAnimal=[buscarAnimal(1,animales)]
     participaciones=participacionAnimal[0]
-    for i in range(1,len(animales)):##len(n) si queremos ignorar animales que no apareceran
+    for i in range(1,len(animales)):## n si queremos ignorar animales que no apareceran
         if(participacionAnimal[i]==participaciones):
             fullAnimal.append(buscarAnimal(i+1,animales))
         elif(participacionAnimal[i]<participaciones):
@@ -263,11 +292,17 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     menosParticipaciones=participaciones
     #print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
     #print(fullAnimal)
+    #print("-------------------")
     #print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
     #print("\n esta es la apertura:")
-    #print(resultado[0])
-    #print("estas son el resto de las partes:")
-    #for i in range(1,len(resultado)):
-        #print("parte "+str(i+1)+":")
-        #print(resultado[i])
-zooLineal(8,2,2,animales2)
+    """ print(resultado[0])
+    print("estas son el resto de las partes:")
+    for i in range(1,len(resultado)):
+        print("parte "+str(i+1)+":")
+        print(resultado[i]) """
+    print(fullResultado[0])
+    print("estas son el resto de las partes:")
+    for i in range(1,len(fullResultado)):
+        print("parte "+str(i+1)+":")
+        print(fullResultado[i])
+zooLineal(8,6,6,animales2)
