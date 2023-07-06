@@ -86,7 +86,7 @@ def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 ele
     return s
 #print(sortScene([["pig",1],["loro",2],["ant",3],["oso",4],["kuma",5]]))
 
-def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar de forma ascendente
+def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar de forma ascendente. este algoritmo esta basado en reduxsort
     
     l=len(s)
     conteo=[0 for i in range(n)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
@@ -117,11 +117,10 @@ aaa=[[['ant', 3], ['loro', 2], ['pig', 1]], [['hebi', 6], ['kuma', 5], ['bear', 
 def sortPart(s,n):
     l=3*n-3
     salida=[[["None",0],["None",0],["None",0]] for i in range(len(s))]
-    s=auxSortPart(s,n,2)
+    s=auxSortPart(s,n,2)######estas tres lineas se usan como un redixsort
     s=auxSortPart(s,n,1)
     s=auxSortPart(s,n,0)
-    print(s)
-    for i in reversed(range(1,len(s))):
+    for i in range(1,len(s)):
         key=s[i][0][1]+s[i][1][1]+s[i][2][1]
         keyS=s[i]
         ii=i-1
@@ -219,11 +218,7 @@ def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las part
             bigScene=[fullEscena]
         
         fullApertura.append(fullEscena)
-    print(fullApertura)
-    print("sfaddddddddddddddddddddddddddddddddddddddddd")
     fullApertura=sortPart(fullApertura,n)
-    print(fullApertura)
-    print("sfaddddddddddddddddddddddddddddddddddddddddd")
     for i in range(len(fullApertura)):
         for j in range(3):
             apertura[i][j]=fullApertura[i][j][0]
@@ -247,10 +242,6 @@ def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las part
                 participacionAnimal[fullEscena[i][1]-1]+=1##seguimos contando animales
                 allSceneSizes[0]+=fullEscena[i][1]#####calculando promedio
             allSceneSizes[1]+=1#####calculando promedio
-            
-        fullPartes=auxSortPart(fullPartes,n,0)
-        fullPartes=auxSortPart(fullPartes,n,1)
-        fullPartes=auxSortPart(fullPartes,n,2)
         fullPartes=sortPart(fullPartes,n)
 
         fullResultado.append(fullPartes)
@@ -293,6 +284,7 @@ def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las part
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     menosParticipaciones=participaciones
+    print("ppppppppppppppppppppppppppppppppppppppppp")
     print(fullResultado[0])
     #print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
     #print(fullAnimal)
@@ -303,7 +295,7 @@ def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las part
     #for i in range(1,len(resultado)):
         #print("parte "+str(i+1)+":")
         #print(resultado[i])
-    for i in range(1,len(fullResultado)):
+    """ for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
-        print(fullResultado[i])
-zooCuadratico(8,4,4,animales2)
+        print(fullResultado[i]) """
+zooCuadratico(8,40,40,animales2)

@@ -104,9 +104,9 @@ def sortPart(s,n):
     l=3*n-3
     countN=[0 for i in range(l)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
     salida=[[["None",0],["None",0],["None",0]] for i in range(len(s))]
-    s=auxSortPart(s,n,0)
+    s=auxSortPart(s,n,2)######estas tres lineas se usan como un redixsort
     s=auxSortPart(s,n,1)
-    s=auxSortPart(s,n,2)
+    s=auxSortPart(s,n,0)
     for i in range(len(s)):
         sceneSize=0
         for j in range(3):
@@ -118,7 +118,7 @@ def sortPart(s,n):
         acumulativa=countN[i]
     for i in range(len(countN)):
         countN[i]=countN[i]-1
-    for i in reversed(range(len(s))):
+    for i in range(len(s)):
         sceneSize=0
         for j in range(3):
             sceneSize+=s[i][j][1]
@@ -218,10 +218,9 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
             bigScene=[fullEscena]
         
         fullApertura.append(fullEscena)
-    fullApertura=auxSortPart(fullApertura,n,0)
-    fullApertura=auxSortPart(fullApertura,n,1)
-    fullApertura=auxSortPart(fullApertura,n,2)
-    fullApertura=sortPart(fullApertura,n)
+    #print(fullApertura)
+    fullApertura=sortPart(fullApertura,n)########################################################################
+    #print(fullApertura)
     for i in range(len(fullApertura)):
         for j in range(3):
             apertura[i][j]=fullApertura[i][j][0]
@@ -245,10 +244,7 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
                 participacionAnimal[fullEscena[i][1]-1]+=1##seguimos contando animales
                 allSceneSizes[0]+=fullEscena[i][1]#####calculando promedio
             allSceneSizes[1]+=1#####calculando promedio
-            
-        fullPartes=auxSortPart(fullPartes,n,0)
-        fullPartes=auxSortPart(fullPartes,n,1)
-        fullPartes=auxSortPart(fullPartes,n,2)
+        
         fullPartes=sortPart(fullPartes,n)
 
         fullResultado.append(fullPartes)
