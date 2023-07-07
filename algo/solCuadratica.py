@@ -26,31 +26,45 @@ def countSort(s):#organiza la lista de mayor a menor
     return salida
 
 def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
-    l=3*n*k
-    countN=[0 for i in range(l)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
-    salida=[[[["None",0],["None",0],["None",0]] for i in range(k)] for i in range(len(p))]
-    for i in range(len(p)):
+    ###################afjañldfkjañslkdjñlfjñldfjalñsfkdjaslñdf. el problema es que ya estaba recorriendo un i, y cree otro rango con ese i, 3-4 horas xdxdxd
+    ans=[[[["None",0],["None",0],["None",0]] for i in range(k)] for i in range(len(p))]
+    ans=p.copy()
+    sumScene1=0
+    sumScene2=0
+    if(len(p)<2):
+        return p
+    for j in range(k):
+            for o in range(3):
+                sumScene1+=ans[0][j][o][1]
+    for j in range(k):
+            for o in range(3):
+                sumScene2+=ans[1][j][o][1]
+    if(sumScene1>sumScene2):
+         ans[0]=p[0]
+         ans[1]=p[1]
+    else:
+         ans[0]=p[1]
+         ans[1]=p[0]
+    for i in range(1,len(p)):
+        if(len(ans)==2):
+            return ans
+        insertion=ans.copy()[i]
         sceneSize=0
         for j in range(k):
-            for o in range(3):
-                sceneSize+=p[i][j][o][1]
-        countN[sceneSize]+=1
-    acumulativa=countN[0]
-    for i in range(1,len(countN)):
-        countN[i]+=acumulativa
-        acumulativa=countN[i]
-    for i in range(len(countN)):
-        countN[i]=countN[i]-1
-    for i in reversed(range(len(p))):
-        sceneSize=0
-        for j in range(k):
-            for o in range(3):
-                sceneSize+=p[i][j][o][1]
-        countN[sceneSize]
-        salida[countN[sceneSize]]=p[i]
-        countN[sceneSize]-=1
-    salida=salida[::-1]
-    return salida
+                for o in range(3):
+                    sceneSize+=insertion[j][o][1]
+        for j in reversed(range(1,i+1)):
+            oScene=0
+            aux=ans.copy()[j-1]
+            for o in range(k):
+                for h in range(3):
+                    oScene+=ans[j-1][o][h][1]
+            if(sceneSize>oScene):
+                #ans[j]=ans[j-1]
+                #ans[j-1]=insertion
+                ans[j-1]=insertion
+                ans[j]=aux
+    return ans
 
 def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 elementos).O(3)
     #ya que la entrada nunca superara un tamaño de 3, sera mas efectivo organizar la lista usando
@@ -70,8 +84,9 @@ def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 ele
             s[1]=s[0]
             s[0]=aux
     return s
+#print(sortScene([["pig",1],["loro",2],["ant",3],["oso",4],["kuma",5]]))
 
-def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar de forma ascendente
+def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar de forma ascendente. este algoritmo esta basado en reduxsort
     
     l=len(s)
     conteo=[0 for i in range(n)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
@@ -101,33 +116,21 @@ aaa=[[['ant', 3], ['loro', 2], ['pig', 1]], [['hebi', 6], ['kuma', 5], ['bear', 
 
 def sortPart(s,n):
     l=3*n-3
-    countN=[0 for i in range(l)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
     salida=[[["None",0],["None",0],["None",0]] for i in range(len(s))]
     s=auxSortPart(s,n,2)######estas tres lineas se usan como un redixsort
     s=auxSortPart(s,n,1)
     s=auxSortPart(s,n,0)
-    for i in range(len(s)):
-        sceneSize=0
-        for j in range(3):
-            sceneSize+=s[i][j][1]
-        countN[sceneSize-1]+=1
-    acumulativa=countN[0]
-    for i in range(1,len(countN)):
-        countN[i]+=acumulativa
-        acumulativa=countN[i]
-    for i in range(len(countN)):
-        countN[i]=countN[i]-1
-    for i in range(len(s)):
-        sceneSize=0
-        for j in range(3):
-            sceneSize+=s[i][j][1]
-        salida[countN[sceneSize-1]][0]=s[i][0]
-        salida[countN[sceneSize-1]][1]=s[i][1]
-        salida[countN[sceneSize-1]][2]=s[i][2]
-        countN[sceneSize-1]-=1
-    salida=salida[::-1]
-    return salida
-
+    for i in range(1,len(s)):
+        key=s[i][0][1]+s[i][1][1]+s[i][2][1]
+        keyS=s[i]
+        ii=i-1
+        x=i
+        while(x>0 and (s[ii][0][1]+s[ii][1][1]+s[ii][2][1])<key):
+            s[x]=s[ii]
+            s[ii]=keyS
+            ii-=1
+            x-=1
+    return s
 
 #size=s[0][0][0]+s[0][0][1]+s[0][0][2]
 def sizeScene(s):
@@ -152,10 +155,10 @@ partess = [["tapir", "nutria", "perro"],["ciempies", "tapir", "gato"],["gato", "
 
 #en python las listas([1,2,3]) funcionan como arreglos dinamicos asi que el costo de llegar a un
 
-def solLineal(n, m, k,animales,grandezas,apert,part):#n animales, m partes, k escenas en las partes que proceden a la apertura
+def solCuadratica(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k escenas en las partes que proceden a la apertura
     ###animales = [str(i) for i in range(1, n + 1)]  # creamos la lista de animales, el animal se llama igual que su tamaño
     apertura=[['animal','animal','animal'] for i in range((m-1)*k)]
-    fullApertura=[]#[[['n muy pequeña',1],['n muy pequeña',1],['n muy pequeña',1]] for i in range((m-1)*k)]
+    fullApertura=[]
     #partes = []#aqui se guardaran las escenas de las partes que siguen a la apertura
     resultado=[]
     fullResultado=[]
@@ -170,7 +173,6 @@ def solLineal(n, m, k,animales,grandezas,apert,part):#n animales, m partes, k es
 
     fullAnimales=[]
     
-    #######estos indices nos ayudaran a poner los animales en las escenas
     indexAnimales0=0
     indexAnimales1=1
     indexAnimales2=2
@@ -178,7 +180,6 @@ def solLineal(n, m, k,animales,grandezas,apert,part):#n animales, m partes, k es
     for i in range((m - 1) * k):#O(n)
         escena = []
         fullEscena=[]
-
 
         animal=animales[indexAnimales0]
         participacionAnimal[animal[1]-1]+=1##contando la participacion
@@ -231,7 +232,7 @@ def solLineal(n, m, k,animales,grandezas,apert,part):#n animales, m partes, k es
             bigScene=[fullEscena]
         
         fullApertura.append(fullEscena)
-    fullApertura=sortPart(fullApertura,n)########################################################################
+    fullApertura=sortPart(fullApertura,n)
     for i in range(len(fullApertura)):
         for j in range(3):
             apertura[i][j]=fullApertura[i][j][0]
@@ -255,12 +256,12 @@ def solLineal(n, m, k,animales,grandezas,apert,part):#n animales, m partes, k es
                 participacionAnimal[fullEscena[i][1]-1]+=1##seguimos contando animales
                 allSceneSizes[0]+=fullEscena[i][1]#####calculando promedio
             allSceneSizes[1]+=1#####calculando promedio
-        
         fullPartes=sortPart(fullPartes,n)
 
         fullResultado.append(fullPartes)
     
     fullPartes=fullResultado.copy()[1::]
+    #print(fullPartes)
     fullPartes=sortPartes(fullPartes,n,k)
     for i in range(1,len(fullResultado)):
         fullResultado[i]=fullPartes[i-1]
@@ -276,40 +277,39 @@ def solLineal(n, m, k,animales,grandezas,apert,part):#n animales, m partes, k es
 
     ####vamos a ver cual es el animal que mas participo
     ##ahora pondremos el fullResultado en forma de respuesta
-    AniParti=["animal",2]
+    fullAnimal=["animal",2]
     participaciones=0
     for i in range(len(animales)):##len(n) si queremos ignorar animales que no apareceran
         if(participacionAnimal[i]==participaciones):
-            AniParti.append(buscarAnimal(i+1,animales))
+            fullAnimal.append(buscarAnimal(i+1,animales))
         elif(participacionAnimal[i]>participaciones):
-            AniParti=[buscarAnimal(i+1,animales)]
+            fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     masParticipaciones=participaciones
-    print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
-    print(AniParti)
+    ###########print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
+    ############print(fullAnimal)
 
     fullAnimal=[buscarAnimal(1,animales)]
     participaciones=participacionAnimal[0]
-    for i in range(1,len(animales)):## n si queremos ignorar animales que no apareceran
+    for i in range(1,len(animales)):##len(n) si queremos ignorar animales que no apareceran
         if(participacionAnimal[i]==participaciones):
             fullAnimal.append(buscarAnimal(i+1,animales))
         elif(participacionAnimal[i]<participaciones):
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     menosParticipaciones=participaciones
+    print("ppppppppppppppppppppppppppppppppppppppppp")
+    print(fullResultado[0])
     #print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
     #print(fullAnimal)
-    #print("-------------------")
     #print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
     #print("\n esta es la apertura:")
-    """ print(resultado[0])
-    print("estas son el resto de las partes:")
-    for i in range(1,len(resultado)):
-        print("parte "+str(i+1)+":")
-        print(resultado[i]) """
-    """ print(fullResultado[0])
-    print("estas son el resto de las partes:")
-    for i in range(1,len(fullResultado)):
+    #print(resultado[0])
+    #print("estas son el resto de las partes:")
+    #for i in range(1,len(resultado)):
+        #print("parte "+str(i+1)+":")
+        #print(resultado[i])
+    """ for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
         print(fullResultado[i]) """
-solLineal(4,20,10,animales2,grandezas,apertura,partess)
+solCuadratica(4,20,10,animales2,grandezas,apertura,partess)
