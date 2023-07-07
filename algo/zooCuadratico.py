@@ -187,6 +187,8 @@ def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las part
         if(indexAnimales2>=len(animales) or indexAnimales2>=n):#si llegamos a todas las combinaciones, los indices se resetearan
             if(indexAnimales1>=len(animales)-2 or indexAnimales1>=(n-2)):
                 if(indexAnimales0>=len(animales)-3 or indexAnimales0>=(n-3)):##en este punto tengo la opcion de mandar un error porque ya hice todas las combinaciones
+                    #print("hubo un error, el valor de n es muy pequeño para poder hacer combinaciones de escenas que no se repitan")
+                    #return 0
                     indexAnimales0=0
                     indexAnimales1=1
                     indexAnimales2=2
@@ -298,4 +300,4 @@ def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las part
     """ for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
         print(fullResultado[i]) """
-zooCuadratico(8,40,40,animales2)
+zooCuadratico(8,200,100,animales2)

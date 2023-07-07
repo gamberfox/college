@@ -7,5 +7,4 @@ b=[]
 
 for i in range(20):
     b.append([indexAnimales,indexAnimales2,indexAnimales3])
-for i in range(len(b)):
-    print(b[i])
+    indexAnimales+=1
