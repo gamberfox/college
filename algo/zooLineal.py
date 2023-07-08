@@ -107,6 +107,7 @@ def sortPart(s,n):
     s=auxSortPart(s,n,2)######estas tres lineas se usan como un redixsort
     s=auxSortPart(s,n,1)
     s=auxSortPart(s,n,0)
+    s=s[::-1]
     for i in range(len(s)):
         sceneSize=0
         for j in range(3):
@@ -300,4 +301,4 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
         print(fullResultado[i]) """
-zooLineal(5,4,4,animales2)
+zooLineal(8,4,4,animales2)

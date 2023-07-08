@@ -49,7 +49,6 @@ def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
         countN[sceneSize]
         salida[countN[sceneSize]]=p[i]
         countN[sceneSize]-=1
-    salida=salida[::-1]
     return salida
 
 def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 elementos).O(3)
@@ -105,6 +104,7 @@ def sortPart(s,n):
     s=auxSortPart(s,n,2)######estas tres lineas se usan como un redixsort
     s=auxSortPart(s,n,1)
     s=auxSortPart(s,n,0)
+    s=s[::-1]##solia organizar todo de forma ascendente, esta linea es mas simple que cambiar el resto del codigo
     for i in range(len(s)):
         sceneSize=0
         for j in range(3):
@@ -144,13 +144,13 @@ k = 2
 animales = ["gato", "libelula", "ciempies", "nutria", "perro", "tapir"]
 grandezas = [3, 2, 1, 6, 4, 5]
 
-apert = [["tapir", "nutria", "perro"],["tapir", "perro" "gato"], ["ciempies", "tapir", "gato"],["gato", "ciempies", "libelula"]]
+apert = [["tapir", "nutria", "perro"],["tapir", "perro", "gato"], ["ciempies", "tapir", "gato"],["gato", "ciempies", "libelula"]]
 
-partess = [["tapir", "nutria", "perro"],["ciempies", "tapir", "gato"],["gato", "ciempies", "libelula"], ["tapir", "perro", "gato"]]
+partess = [[["tapir", "nutria", "perro"],["ciempies", "tapir", "gato"]],[["gato", "ciempies", "libelula"], ["tapir", "perro", "gato"]]]
 
 #en python las listas([1,2,3]) funcionan como arreglos dinamicos asi que el costo de llegar a un
 
-def solLineal(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k escenas en las partes que proceden a la apertura
+def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k escenas en las partes que proceden a la apertura
     ###animales = [str(i) for i in range(1, n + 1)]  # creamos la lista de animales, el animal se llama igual que su tamaño
     apertura=[['animal','animal','animal'] for i in range((m-1)*k)]
 
@@ -162,7 +162,6 @@ def solLineal(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k escena
     animales=[["animal",0] for i in range(len(anim))]
     for i in range(len(diccionario)):#aqui creo la lista de animales usada en zooLineal.py,
         animales[i]=[anim[i],diccionario[anim[i]]]
-    print(animales)
     fullApertura=[]
     #partes = []#aqui se guardaran las escenas de las partes que siguen a la apertura
     resultado=[]
@@ -188,36 +187,21 @@ def solLineal(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k escena
         fullEscena=[]
 
 
-        animal=animales[indexAnimales0]
+        animal=[apert[i][0],diccionario[apert[i][0]]]
         participacionAnimal[animal[1]-1]+=1##contando la participacion
         fullEscena.append(animal)
         allSceneSizes[0]+=animal[1]######escena promedio
 
-        animal=animales[indexAnimales1]
+        animal=[apert[i][1],diccionario[apert[i][1]]]
         participacionAnimal[animal[1]-1]+=1##contando la participacion
         fullEscena.append(animal)
         allSceneSizes[0]+=animal[1]######escena promedio
-        animal=animales[indexAnimales2]
+
+        animal=[apert[i][2],diccionario[apert[i][2]]]
         participacionAnimal[animal[1]-1]+=1##contando la participacion
         indexAnimales2+=1
         fullEscena.append(animal)
         allSceneSizes[0]+=animal[1]######escena promedio
-
-        if(indexAnimales2>=len(animales) or indexAnimales2>=n):#si llegamos a todas las combinaciones, los indices se resetearan
-            if(indexAnimales1>=len(animales)-2 or indexAnimales1>=(n-2)):
-                if(indexAnimales0>=len(animales)-3 or indexAnimales0>=(n-3)):##en este punto tengo la opcion de mandar un error porque ya hice todas las combinaciones
-                    #print("hubo un error, el valor de n es muy pequeño para poder hacer combinaciones de escenas que no se repitan")
-                    #return 0
-                    indexAnimales0=0
-                    indexAnimales1=1
-                    indexAnimales2=2
-                else:
-                    indexAnimales0+=1
-                    indexAnimales1=indexAnimales0+1
-                    indexAnimales2=indexAnimales0+2
-            else:
-                indexAnimales1+=1
-                indexAnimales2=indexAnimales1+1
 
 
 
@@ -242,8 +226,8 @@ def solLineal(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k escena
     fullApertura=sortPart(fullApertura,n)########################################################################
     for i in range(len(fullApertura)):
         for j in range(3):
-            apertura[i][j]=fullApertura[i][j][0]
-    resultado.append(apertura)
+            apert[i][j]=fullApertura[i][j][0]
+    resultado.append(apert)
     fullResultado.append(fullApertura)
 
     # el rest de  m - 1 partes: k escenas
@@ -253,14 +237,19 @@ def solLineal(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k escena
         fullPartes=[]
         for j in range(k):
             #escena = apertura[ii].copy()  #usara escenas para la primera parte
-            fullEscena=fullApertura[ii].copy()
+            fullEscena=[]
+            
+            for o in range(3):
+                animal=[partess[i][j][o],diccionario[partess[i][j][o]]]
+                fullEscena.append(animal)
+            fullEscena=sortScene(fullEscena)
             ii+=1
             if(ii>len(fullApertura)):
                 ii=0
             #partes.append(escena)
             fullPartes.append(fullEscena)
-            for i in range(3):
-                participacionAnimal[fullEscena[i][1]-1]+=1##seguimos contando animales
+            for o in range(3):
+                participacionAnimal[fullEscena[o][1]-1]+=1##seguimos contando animales
                 allSceneSizes[0]+=fullEscena[i][1]#####calculando promedio
             allSceneSizes[1]+=1#####calculando promedio
         
@@ -293,8 +282,6 @@ def solLineal(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k escena
             AniParti=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     masParticipaciones=participaciones
-    print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
-    print(AniParti)
 
     fullAnimal=[buscarAnimal(1,animales)]
     participaciones=participacionAnimal[0]
@@ -305,19 +292,26 @@ def solLineal(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k escena
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     menosParticipaciones=participaciones
-    #print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
-    #print(fullAnimal)
-    #print("-------------------")
-    #print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
     #print("\n esta es la apertura:")
     """ print(resultado[0])
     print("estas son el resto de las partes:")
     for i in range(1,len(resultado)):
         print("parte "+str(i+1)+":")
         print(resultado[i]) """
+    print("\n El orden en el que se debe presentar el espectaculo es:")
     print(fullResultado[0])
     print("estas son el resto de las partes:")
     for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
         print(fullResultado[i])
+    print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
+    print(AniParti)
+    print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
+    print(fullAnimal)
+    print("-------------------")
+    print("La escena de menor grandeza total fue la escena: ")
+    print(smallScene[0])
+    print("La escena de mayor grandeza total fue la escena: ")
+    print(bigScene[0])
+    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
 solLineal(n,m,k,animales,grandezas,apert,partess)

@@ -64,6 +64,7 @@ def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
                 #ans[j-1]=insertion
                 ans[j-1]=insertion
                 ans[j]=aux
+    #ans=ans[::-1]
     return ans
 
 def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 elementos).O(3)
@@ -84,7 +85,6 @@ def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 ele
             s[1]=s[0]
             s[0]=aux
     return s
-#print(sortScene([["pig",1],["loro",2],["ant",3],["oso",4],["kuma",5]]))
 
 def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar de forma ascendente. este algoritmo esta basado en reduxsort
     
@@ -128,6 +128,7 @@ def sortPart(s,n):
             s[ii]=keyS
             ii-=1
             x-=1
+    s=s[::-1]#invertir la lista despues de organizarla descendientemente
     return s
 
 #size=s[0][0][0]+s[0][0][1]+s[0][0][2]
@@ -147,13 +148,13 @@ k = 2
 anim = ["gato", "libelula", "ciempies", "nutria", "perro", "tapir"]
 grandezas = [3, 2, 1, 6, 4, 5]
 
-apertura = [["tapir", "nutria", "perro"],["tapir", "perro" "gato"], ["ciempies", "tapir", "gato"],["gato", "ciempies", "libelula"]]
+apert = [["tapir", "nutria", "perro"],["tapir", "perro", "gato"], ["ciempies", "tapir", "gato"],["gato", "ciempies", "libelula"]]
 
-partess = [["tapir", "nutria", "perro"],["ciempies", "tapir", "gato"],["gato", "ciempies", "libelula"], ["tapir", "perro", "gato"]]
+partess = [[["tapir", "nutria", "perro"],["ciempies", "tapir", "gato"]],[["gato", "ciempies", "libelula"], ["tapir", "perro", "gato"]]]
 
 #en python las listas([1,2,3]) funcionan como arreglos dinamicos asi que el costo de llegar a un
 
-def solCuadratica(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k escenas en las partes que proceden a la apertura
+def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k escenas en las partes que proceden a la apertura
     ###animales = [str(i) for i in range(1, n + 1)]  # creamos la lista de animales, el animal se llama igual que su tamaño
     apertura=[['animal','animal','animal'] for i in range((m-1)*k)]
 
@@ -161,12 +162,9 @@ def solCuadratica(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k es
     diccionario={}
     for i in range(n):
         diccionario[anim[i]]=grandezas[i]
-    print(diccionario)
-    print(len(diccionario))
     animales=[["animal",0] for i in range(len(anim))]
     for i in range(len(diccionario)):#aqui creo la lista de animales usada en zooLineal.py,
         animales[i]=[anim[i],diccionario[anim[i]]]
-    print(animales)
     fullApertura=[]
     #partes = []#aqui se guardaran las escenas de las partes que siguen a la apertura
     resultado=[]
@@ -191,16 +189,15 @@ def solCuadratica(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k es
         fullEscena=[]
 
         animal=[apert[i][0],diccionario[apert[i][0]]]
-        print(animal)
+        participacionAnimal[animal[1]-1]+=1##contando la participacion
+        fullEscena.append(animal)
+        allSceneSizes[0]+=animal[1]######escena promedio
+        animal=[apert[i][1],diccionario[apert[i][1]]]
         participacionAnimal[animal[1]-1]+=1##contando la participacion
         fullEscena.append(animal)
         allSceneSizes[0]+=animal[1]######escena promedio
 
-        animal=animales[indexAnimales1]
-        participacionAnimal[animal[1]-1]+=1##contando la participacion
-        fullEscena.append(animal)
-        allSceneSizes[0]+=animal[1]######escena promedio
-        animal=animales[indexAnimales2]
+        animal=[apert[i][2],diccionario[apert[i][2]]]
         participacionAnimal[animal[1]-1]+=1##contando la participacion
         indexAnimales2+=1
         fullEscena.append(animal)
@@ -229,7 +226,7 @@ def solCuadratica(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k es
     fullApertura=sortPart(fullApertura,n)
     for i in range(len(fullApertura)):
         for j in range(3):
-            apertura[i][j]=fullApertura[i][j][0]
+            apert[i][j]=fullApertura[i][j][0]
     resultado.append(apertura)
     fullResultado.append(fullApertura)
 
@@ -240,23 +237,27 @@ def solCuadratica(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k es
         fullPartes=[]
         for j in range(k):
             #escena = apertura[ii].copy()  #usara escenas para la primera parte
-            fullEscena=fullApertura[ii].copy()
+            fullEscena=[]
+            
+            for o in range(3):
+                animal=[partess[i][j][o],diccionario[partess[i][j][o]]]
+                fullEscena.append(animal)
+            fullEscena=sortScene(fullEscena)
             ii+=1
             if(ii>len(fullApertura)):
                 ii=0
             #partes.append(escena)
             fullPartes.append(fullEscena)
-            for i in range(3):
-                participacionAnimal[fullEscena[i][1]-1]+=1##seguimos contando animales
+            for o in range(3):
+                participacionAnimal[fullEscena[o][1]-1]+=1##seguimos contando animales
                 allSceneSizes[0]+=fullEscena[i][1]#####calculando promedio
             allSceneSizes[1]+=1#####calculando promedio
         fullPartes=sortPart(fullPartes,n)
-
         fullResultado.append(fullPartes)
     
     fullPartes=fullResultado.copy()[1::]
-    #print(fullPartes)
     fullPartes=sortPartes(fullPartes,n,k)
+    fullPartes=fullPartes[::-1]
     for i in range(1,len(fullResultado)):
         fullResultado[i]=fullPartes[i-1]
     
@@ -280,6 +281,7 @@ def solCuadratica(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k es
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     masParticipaciones=participaciones
+    AniParti=fullAnimal
     ###########print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
     ############print(fullAnimal)
 
@@ -292,18 +294,39 @@ def solCuadratica(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k es
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     menosParticipaciones=participaciones
-    print("ppppppppppppppppppppppppppppppppppppppppp")
+    print("El orden en el que se debe presentar el espectaculo es:")
     print(fullResultado[0])
-    #print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
-    #print(fullAnimal)
-    #print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
-    #print("\n esta es la apertura:")
-    #print(resultado[0])
-    #print("estas son el resto de las partes:")
-    #for i in range(1,len(resultado)):
-        #print("parte "+str(i+1)+":")
-        #print(resultado[i])
-    """ for i in range(1,len(fullResultado)):
+    print("estas son el resto de las partes:")
+    for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
-        print(fullResultado[i]) """
-solCuadratica(n,m,k,anim,grandezas,apertura,partess)
+        print(fullResultado[i])
+    
+    print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
+    print(AniParti)
+    print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
+    print(fullAnimal)
+    print("-------------------")
+    print("La escena de menor grandeza total fue la escena: ")
+    print(smallScene[0])
+    print("La escena de mayor grandeza total fue la escena: ")
+    print(bigScene[0])
+    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
+
+
+
+solCuadratica(n,m,k,anim,grandezas,apert,partess)
+print(222222222222222222222222)
+n = 9
+m = 4
+k = 3
+anim = ["leon", "panteranegra", "cebra", "cocodrilo", "boa", "loro", "caiman", "tigre", "capibara"]
+grandezas = [9, 7, 6, 5, 4, 2, 3, 8, 1]
+
+apert = [["caiman", "capibara", "loro"], ["boa", "caiman", "capibara"], ["cocodrilo", "capibara", "loro"],
+         ["panteranegra", "cocodrilo", "loro"], ["tigre", "loro", "capibara"], ["leon", "caiman", "loro"],
+         ["leon", "cocodrilo", "boa"], ["leon", "panteranegra", "cebra"], ["tigre", "cebra", "panteranegra"]]
+
+partess = [[["caiman", "capibara", "loro"],["tigre", "loro", "capibara"],["tigre", "cebra", "panteranegra"]],
+           [["panteranegra", "cocodrilo", "loro"], ["leon", "panteranegra", "cebra"], ["cocodrilo", "capibara", "loro"]],
+           [["boa", "caiman", "capibara"], ["leon", "caiman", "loro"], ["leon", "cocodrilo", "boa"]]]
+solCuadratica(n,m,k,anim,grandezas,apert,partess)

@@ -116,9 +116,9 @@ aaa=[[['ant', 3], ['loro', 2], ['pig', 1]], [['hebi', 6], ['kuma', 5], ['bear', 
 def sortPart(s,n):
     l=3*n-3
     salida=[[["None",0],["None",0],["None",0]] for i in range(len(s))]
-    s=auxSortPart(s,n,2)######estas tres lineas se usan como un redixsort
+    s=auxSortPart(s,n,0)######estas tres lineas se usan como un redixsort
     s=auxSortPart(s,n,1)
-    s=auxSortPart(s,n,0)
+    s=auxSortPart(s,n,2)
     for i in range(1,len(s)):
         key=s[i][0][1]+s[i][1][1]+s[i][2][1]
         keyS=s[i]
@@ -300,4 +300,4 @@ def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las part
     """ for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
         print(fullResultado[i]) """
-zooCuadratico(5,4,4,animales2)
+zooCuadratico(8,4,4,animales2)
