@@ -52,25 +52,25 @@ def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
     salida=salida[::-1]
     return salida
 
-def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 elementos).O(3)
+def sortScene(s):#organiza una escena ascendientemente(las escenas tienen 3 elementos).O(3)
     #ya que la entrada nunca superara un tamaño de 3, sera mas efectivo organizar la lista usando
     #un algoritmo de comparacion, ya que su tiempo de ejecucion sera menor comparado con algo como counting-sort.
     #la razon es que sin importar el tamaño de la entrada (n,m,k), este algoritmo siempre realizara como maximo 3 comparaciones.
     #si se usa un array mas grande, el algoritmo solo organizara los primeros 3 elements
-    if(s[1][1]>s[0][1]):
+    if(s[1][1]<s[0][1]):
         aux=s[1]
         s[1]=s[0]
         s[0]=aux
-    if(s[2][1]>s[1][1]):
+    if(s[2][1]<s[1][1]):
         aux=s[2]
         s[2]=s[1]
         s[1]=aux
-        if(s[1][1]>s[0][1]):
+        if(s[1][1]<s[0][1]):
             aux=s[1]
             s[1]=s[0]
             s[0]=aux
     return s
-#print(sortScene([["pig",1],["loro",2],["ant",3],["oso",4],["kuma",5]]))
+#print(sortScene([["pig",5],["loro",4],["ant",3],["oso",2],["kuma",1]]))
 
 def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar de forma ascendente
     
@@ -126,7 +126,6 @@ def sortPart(s,n):
         salida[countN[sceneSize-1]][1]=s[i][1]
         salida[countN[sceneSize-1]][2]=s[i][2]
         countN[sceneSize-1]-=1
-    salida=salida[::-1]
     return salida
 
 
@@ -296,9 +295,9 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     for i in range(1,len(resultado)):
         print("parte "+str(i+1)+":")
         print(resultado[i]) """
-    """ print(fullResultado[0])
-    print("estas son el resto de las partes:")
+    print(fullResultado[0])
+    """"print("estas son el resto de las partes:")
     for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
         print(fullResultado[i]) """
-zooLineal(4,20,10,animales2)
+zooLineal(5,4,4,animales2)

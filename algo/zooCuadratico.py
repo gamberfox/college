@@ -71,15 +71,15 @@ def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 ele
     #un algoritmo de comparacion, ya que su tiempo de ejecucion sera menor comparado con algo como counting-sort.
     #la razon es que sin importar el tamaño de la entrada (n,m,k), este algoritmo siempre realizara como maximo 3 comparaciones.
     #si se usa un array mas grande, el algoritmo solo organizara los primeros 3 elements
-    if(s[1][1]>s[0][1]):
+    if(s[1][1]<s[0][1]):
         aux=s[1]
         s[1]=s[0]
         s[0]=aux
-    if(s[2][1]>s[1][1]):
+    if(s[2][1]<s[1][1]):
         aux=s[2]
         s[2]=s[1]
         s[1]=aux
-        if(s[1][1]>s[0][1]):
+        if(s[1][1]<s[0][1]):
             aux=s[1]
             s[1]=s[0]
             s[0]=aux
@@ -109,7 +109,6 @@ def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar de forma 
         salida[conteo[s[i][p][1]-1]][2][0]=s[i][2][0]
         salida[conteo[s[i][p][1]-1]][2][1]=s[i][2][1]
         conteo[s[i][p][1]-1]-=1
-    salida=salida[::-1]
 
     return salida
 aaa=[[['ant', 3], ['loro', 2], ['pig', 1]], [['hebi', 6], ['kuma', 5], ['bear', 4]], [['ant', 3], ['loro', 2], ['pig', 1]]]
@@ -130,6 +129,7 @@ def sortPart(s,n):
             s[ii]=keyS
             ii-=1
             x-=1
+    s=s[::-1]
     return s
 
 #size=s[0][0][0]+s[0][0][1]+s[0][0][2]
@@ -300,4 +300,4 @@ def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las part
     """ for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
         print(fullResultado[i]) """
-zooCuadratico(8,200,100,animales2)
+zooCuadratico(5,4,4,animales2)

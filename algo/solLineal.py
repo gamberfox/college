@@ -57,15 +57,15 @@ def sortScene(s):#organiza una escena descendientemente(las escenas tienen 3 ele
     #un algoritmo de comparacion, ya que su tiempo de ejecucion sera menor comparado con algo como counting-sort.
     #la razon es que sin importar el tamaño de la entrada (n,m,k), este algoritmo siempre realizara como maximo 3 comparaciones.
     #si se usa un array mas grande, el algoritmo solo organizara los primeros 3 elements
-    if(s[1][1]>s[0][1]):
+    if(s[1][1]<s[0][1]):
         aux=s[1]
         s[1]=s[0]
         s[0]=aux
-    if(s[2][1]>s[1][1]):
+    if(s[2][1]<s[1][1]):
         aux=s[2]
         s[2]=s[1]
         s[1]=aux
-        if(s[1][1]>s[0][1]):
+        if(s[1][1]<s[0][1]):
             aux=s[1]
             s[1]=s[0]
             s[0]=aux
@@ -94,7 +94,6 @@ def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar de forma 
         salida[conteo[s[i][p][1]-1]][2][0]=s[i][2][0]
         salida[conteo[s[i][p][1]-1]][2][1]=s[i][2][1]
         conteo[s[i][p][1]-1]-=1
-    salida=salida[::-1]
 
     return salida
 aaa=[[['ant', 3], ['loro', 2], ['pig', 1]], [['hebi', 6], ['kuma', 5], ['bear', 4]], [['ant', 3], ['loro', 2], ['pig', 1]]]
@@ -125,7 +124,6 @@ def sortPart(s,n):
         salida[countN[sceneSize-1]][1]=s[i][1]
         salida[countN[sceneSize-1]][2]=s[i][2]
         countN[sceneSize-1]-=1
-    salida=salida[::-1]
     return salida
 
 
@@ -146,16 +144,26 @@ k = 2
 animales = ["gato", "libelula", "ciempies", "nutria", "perro", "tapir"]
 grandezas = [3, 2, 1, 6, 4, 5]
 
-apertura = [["tapir", "nutria", "perro"],["tapir", "perro" "gato"], ["ciempies", "tapir", "gato"],["gato", "ciempies", "libelula"]]
+apert = [["tapir", "nutria", "perro"],["tapir", "perro" "gato"], ["ciempies", "tapir", "gato"],["gato", "ciempies", "libelula"]]
 
 partess = [["tapir", "nutria", "perro"],["ciempies", "tapir", "gato"],["gato", "ciempies", "libelula"], ["tapir", "perro", "gato"]]
 
 #en python las listas([1,2,3]) funcionan como arreglos dinamicos asi que el costo de llegar a un
 
-def solLineal(n, m, k,animales,grandezas,apert,part):#n animales, m partes, k escenas en las partes que proceden a la apertura
+def solLineal(n, m, k,anim,grandezas,apert,part):#n animales, m partes, k escenas en las partes que proceden a la apertura
     ###animales = [str(i) for i in range(1, n + 1)]  # creamos la lista de animales, el animal se llama igual que su tamaño
     apertura=[['animal','animal','animal'] for i in range((m-1)*k)]
-    fullApertura=[]#[[['n muy pequeña',1],['n muy pequeña',1],['n muy pequeña',1]] for i in range((m-1)*k)]
+
+    #creare un diccionario para poder incorporar la nueva entrada en este codigo.
+    diccionario={}
+    for i in range(n):
+        diccionario[anim[i]]=grandezas[i]
+    
+    animales=[["animal",0] for i in range(len(anim))]
+    for i in range(len(diccionario)):#aqui creo la lista de animales usada en zooLineal.py,
+        animales[i]=[anim[i],diccionario[anim[i]]]
+    print(animales)
+    fullApertura=[]
     #partes = []#aqui se guardaran las escenas de las partes que siguen a la apertura
     resultado=[]
     fullResultado=[]
@@ -307,9 +315,9 @@ def solLineal(n, m, k,animales,grandezas,apert,part):#n animales, m partes, k es
     for i in range(1,len(resultado)):
         print("parte "+str(i+1)+":")
         print(resultado[i]) """
-    """ print(fullResultado[0])
+    print(fullResultado[0])
     print("estas son el resto de las partes:")
     for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
-        print(fullResultado[i]) """
-solLineal(4,20,10,animales2,grandezas,apertura,partess)
+        print(fullResultado[i])
+solLineal(n,m,k,animales,grandezas,apert,partess)
