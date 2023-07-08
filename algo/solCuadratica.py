@@ -250,7 +250,8 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
             fullPartes.append(fullEscena)
             for o in range(3):
                 participacionAnimal[fullEscena[o][1]-1]+=1##seguimos contando animales
-                allSceneSizes[0]+=fullEscena[i][1]#####calculando promedio
+                print(i)
+                allSceneSizes[0]+=fullEscena[o][1]#####calculando promedio
             allSceneSizes[1]+=1#####calculando promedio
         fullPartes=sortPart(fullPartes,n)
         fullResultado.append(fullPartes)
@@ -315,7 +316,7 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
 
 
 solCuadratica(n,m,k,anim,grandezas,apert,partess)
-print(222222222222222222222222)
+########input 2
 n = 9
 m = 4
 k = 3
@@ -329,4 +330,25 @@ apert = [["caiman", "capibara", "loro"], ["boa", "caiman", "capibara"], ["cocodr
 partess = [[["caiman", "capibara", "loro"],["tigre", "loro", "capibara"],["tigre", "cebra", "panteranegra"]],
            [["panteranegra", "cocodrilo", "loro"], ["leon", "panteranegra", "cebra"], ["cocodrilo", "capibara", "loro"]],
            [["boa", "caiman", "capibara"], ["leon", "caiman", "loro"], ["leon", "cocodrilo", "boa"]]]
+
+
 solCuadratica(n,m,k,anim,grandezas,apert,partess)
+
+###input mio
+mioA=["bear","bird","tori","boar","oso","snake","dog","cat"]
+gran = [1, 2, 3, 4, 5, 6, 7, 8]
+a=[['bear', 'bird', 'tori'], ['bear', 'bird', 'boar'], ['bear', 'bird', 'oso'],
+ ['bear', 'tori', 'boar'], ['bear', 'bird', 'snake'], ['bear', 'tori', 'oso'],
+ ['bear', 'bird', 'dog'], ['bear', 'tori', 'snake'], ['bear', 'boar', 'oso'],
+ ['bear', 'bird', 'cat'], ['bear', 'tori', 'dog'], ['bear', 'boar', 'snake'],
+ ['bear', 'tori', 'cat'], ['bear', 'boar', 'dog'], ['bear', 'oso', 'snake'],
+ ['bear', 'boar', 'cat'], ['bear', 'oso', 'dog'], ['bear', 'oso', 'cat'],
+ ['bear', 'snake', 'dog'], ['bear', 'snake', 'cat']]
+
+a=a[::-1]
+b=[[['bear', 'boar', 'cat'], ['bear', 'oso', 'dog'], ['bear', 'oso', 'cat'], ['bear', 'snake', 'dog'], ['bear', 'snake', 'cat']],
+ [['bear', 'tori', 'dog'], ['bear', 'boar', 'snake'], ['bear', 'tori', 'cat'], ['bear', 'boar', 'dog'], ['bear', 'oso', 'snake']],
+ [['bear', 'tori', 'oso'], ['bear', 'bird', 'dog'], ['bear', 'tori', 'snake'], ['bear', 'boar', 'oso'], ['bear', 'bird', 'cat']],
+ [['bear', 'bird', 'tori'], ['bear', 'bird', 'boar'], ['bear', 'bird', 'oso'], ['bear', 'tori', 'boar'], ['bear', 'bird', 'snake']]]
+b=b[::-1]
+solCuadratica(8,5,5,mioA,gran,a,b)

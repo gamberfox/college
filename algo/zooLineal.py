@@ -286,8 +286,8 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     menosParticipaciones=participaciones
-    #print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
-    #print(fullAnimal)
+    print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
+    print(fullAnimal)
     #print("-------------------")
     #print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
     #print("\n esta es la apertura:")
@@ -296,9 +296,9 @@ def zooLineal(n, m, k,animales):#n animales, m partes, k escenas en las partes q
     for i in range(1,len(resultado)):
         print("parte "+str(i+1)+":")
         print(resultado[i]) """
-    print(fullResultado[0])
+    print(fullResultado[1::])
     """"print("estas son el resto de las partes:")
     for i in range(1,len(fullResultado)):
         print("parte "+str(i+1)+":")
         print(fullResultado[i]) """
-zooLineal(8,4,4,animales2)
+zooLineal(8,5,5,animales2)

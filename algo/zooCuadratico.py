@@ -274,8 +274,8 @@ def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las part
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     masParticipaciones=participaciones
-    ###########print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
-    ############print(fullAnimal)
+    print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
+    print(fullAnimal)
 
     fullAnimal=[buscarAnimal(1,animales)]
     participaciones=participacionAnimal[0]
@@ -288,8 +288,8 @@ def zooCuadratico(n, m, k,animales):#n animales, m partes, k escenas en las part
     menosParticipaciones=participaciones
     print("ppppppppppppppppppppppppppppppppppppppppp")
     print(fullResultado[0])
-    #print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
-    #print(fullAnimal)
+    print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
+    print(fullAnimal)
     #print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
     #print("\n esta es la apertura:")
     #print(resultado[0])
