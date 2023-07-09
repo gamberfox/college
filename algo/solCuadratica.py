@@ -2,6 +2,9 @@ def buscarAnimal(n,a):#buscar un animal en una lista de animales
     for i in range(len(a)):
         if(n==a[i][1]):
             return a[i]
+        
+CONTADOrDeOPERACIONES=0
+CONTADOrDeOPERACIONES+=1
 
 def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
     ###################afjañldfkjañslkdjñlfjñldfjalñsfkdjaslñdf. el problema es que ya estaba recorriendo un i, y cree otro rango con ese i, 3-4 horas xdxdxd
@@ -259,9 +262,7 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     masParticipaciones=participaciones
-    AniParti=fullAnimal
-    ###########print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
-    ############print(fullAnimal)
+    animalQueMasParticipo=fullAnimal
 
     fullAnimal=[buscarAnimal(1,animales)]
     participaciones=participacionAnimal[0]
@@ -272,7 +273,8 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
             fullAnimal=[buscarAnimal(i+1,animales)]
             participaciones=participacionAnimal[i]
     menosParticipaciones=participaciones
-    print("El orden en el que se debe presentar el espectaculo es:")
+
+    """ print("El orden en el que se debe presentar el espectaculo es:")
     print(fullResultado[0])
     print("estas son el resto de las partes:")
     for i in range(1,len(fullResultado)):
@@ -280,7 +282,7 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
         print(fullResultado[i])
     
     print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
-    print(AniParti)
+    print(animalQueMasParticipo)
     print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
     print(fullAnimal)
     print("-------------------")
@@ -288,7 +290,7 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
     print(smallScene[0])
     print("La escena de mayor grandeza total fue la escena: ")
     print(bigScene[0])
-    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
+    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))"""
 
 
 

@@ -1,11 +1,8 @@
+
 def buscarAnimal(n,a):#buscar un animal en una lista de animales 
     for i in range(len(a)):
         if(n==a[i][1]):
             return a[i]
-CONTADOrDeOPERACIONES=0
-    
-conCountSort=0
-CONTADOrDeOPERACIONES+=1
 
 
 def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
@@ -17,7 +14,6 @@ def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
         for j in range(k):
             for o in range(3):
                 sceneSize+=p[i][j][o][1]
-                CONTADOrDeOPERACIONES+=1
         countN[sceneSize]+=1
     acumulativa=countN[0]
     for i in range(1,len(countN)):##procesar de sumar las acumulativas
@@ -136,7 +132,6 @@ partess = [[["tapir", "nutria", "perro"],["ciempies", "tapir", "gato"]],[["gato"
 
 def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k escenas en las partes que proceden a la apertura
     ###animales = [str(i) for i in range(1, n + 1)]  # creamos la lista de animales, el animal se llama igual que su tamaño
-    apertura=[['animal','animal','animal'] for i in range((m-1)*k)]
 
     #creare un diccionario para poder incorporar la nueva entrada en este codigo.
     diccionario={}
@@ -166,6 +161,7 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
     indexAnimales1=1
     indexAnimales2=2
     # Primera parte: (m - 1) * k escenas:   O(km   )
+    ##print(apert)
     for i in range((m - 1) * k):#O(n)
         escena = []
         fullEscena=[]
@@ -175,7 +171,6 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
         participacionAnimal[animal[1]-1]+=1##contando la participacion
         fullEscena.append(animal)
         allSceneSizes[0]+=animal[1]######escena promedio
-
         animal=[apert[i][1],diccionario[apert[i][1]]]
         participacionAnimal[animal[1]-1]+=1##contando la participacion
         fullEscena.append(animal)
@@ -282,7 +277,11 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
     for i in range(1,len(resultado)):
         print("parte "+str(i+1)+":")
         print(resultado[i]) """
-    print("\n El orden en el que se debe presentar el espectaculo es:")
+    
+
+
+
+    """ print("\n El orden en el que se debe presentar el espectaculo es:")
     print(fullResultado[0])
     print("estas son el resto de las partes:")
     for i in range(1,len(fullResultado)):
@@ -297,7 +296,7 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
     print(smallScene[0])
     print("La escena de mayor grandeza total fue la escena: ")
     print(bigScene[0])
-    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
+    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1])) """
 solLineal(n,m,k,animales,grandezas,apert,partess)
 ########input 2
 n = 9
