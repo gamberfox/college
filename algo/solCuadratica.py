@@ -2,28 +2,6 @@ def buscarAnimal(n,a):#buscar un animal en una lista de animales
     for i in range(len(a)):
         if(n==a[i][1]):
             return a[i]
-    
-def countSort(s):#organiza la lista de mayor a menor
-    #con respecto al segundo elemento de cada lista, el cual representa el tamaño
-    #el valor del mayor numero que habra en la lista esta acotado por n, ya que el
-    #tamaño del animal varia desde 1 hasta n, como nos lo indica el problema.
-    ##Este algoritmo es una variacion de counting-sort, cuya complejidad teorica es O(n)
-    l=len(s)
-    conteo=[0]*l#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
-    salida=[["None",0] for i in range(l)]
-    for i in range(l):
-        conteo[s[i][1]-1]+=1
-    acumulativa=conteo[0]
-    for i in range(1,len(conteo)):
-        conteo[i]+=acumulativa
-        acumulativa=conteo[i]
-    for i in range(len(conteo)):
-        conteo[i]=conteo[i]-1
-    for i in reversed(range(l)):
-        salida[conteo[s[i][1]-1]][0]=s[i][0]
-        salida[conteo[s[i][1]-1]][1]=s[i][1]
-        conteo[s[i][1]-1]-=1
-    return salida
 
 def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
     ###################afjañldfkjañslkdjñlfjñldfjalñsfkdjaslñdf. el problema es que ya estaba recorriendo un i, y cree otro rango con ese i, 3-4 horas xdxdxd
@@ -250,7 +228,6 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
             fullPartes.append(fullEscena)
             for o in range(3):
                 participacionAnimal[fullEscena[o][1]-1]+=1##seguimos contando animales
-                print(i)
                 allSceneSizes[0]+=fullEscena[o][1]#####calculando promedio
             allSceneSizes[1]+=1#####calculando promedio
         fullPartes=sortPart(fullPartes,n)
