@@ -151,6 +151,8 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
     ###animales = [str(i) for i in range(1, n + 1)]  # creamos la lista de animales, el animal se llama igual que su tamaño
 
     #creare un diccionario para poder incorporar la nueva entrada en este codigo.
+    #el tiempo para conseguir un dato sera O(1) a menos que 2 llaves tengan el mismo valor,
+    #lo que no sera posible ya que los animales siempre tendran tamaños diferentes
     diccionario={}
     for i in range(n):
         diccionario[anim[i]]=grandezas[i]
@@ -170,24 +172,17 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
     smallScene=[]
     bigScene=[]
     allSceneSizes=[0,0]
-
-    fullAnimales=[]
-    
-    #######estos indices nos ayudaran a poner los animales en las escenas
-    indexAnimales0=0
-    indexAnimales1=1
-    indexAnimales2=2
     # Primera parte: (m - 1) * k escenas:   O(km   )
     ##print(apert)
     for i in range((m - 1) * k):#O(n)
         escena = []
         fullEscena=[]
 
-
         animal=[apert[i][0],diccionario[apert[i][0]]]
         participacionAnimal[animal[1]-1]+=1##contando la participacion
         fullEscena.append(animal)
         allSceneSizes[0]+=animal[1]######escena promedio
+
         animal=[apert[i][1],diccionario[apert[i][1]]]
         participacionAnimal[animal[1]-1]+=1##contando la participacion
         fullEscena.append(animal)
@@ -195,13 +190,9 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
 
         animal=[apert[i][2],diccionario[apert[i][2]]]
         participacionAnimal[animal[1]-1]+=1##contando la participacion
-        indexAnimales2+=1
         fullEscena.append(animal)
         allSceneSizes[0]+=animal[1]######escena promedio
 
-
-
-        
         allSceneSizes[1]+=1##aumentamos en 1 el numero de escenas
         fullEscena=sortScene(fullEscena)
 

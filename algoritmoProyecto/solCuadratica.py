@@ -153,6 +153,8 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
     apertura=[['animal','animal','animal'] for i in range((m-1)*k)]
 
     #creare un diccionario para poder incorporar la nueva entrada en este codigo.
+    #el tiempo para conseguir un dato sera O(1) a menos que 2 llaves tengan el mismo valor,
+    #lo que no sera posible ya que los animales siempre tendran tamaños diferentes
     diccionario={}
     for i in range(n):
         diccionario[anim[i]]=grandezas[i]
