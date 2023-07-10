@@ -2,7 +2,7 @@ import solLineal
 import solCuadratica
 import time
 
-def crearPrueba(n,m,k,apertura,partes):#n,m,k,animales,grandezas,apertura,partes
+def crearPrueba(n,m,k):#n,m,k,animales,grandezas,apertura,partes
     prueba=[]
     prueba.append(n)
     prueba.append(m)
@@ -14,6 +14,7 @@ def crearPrueba(n,m,k,apertura,partes):#n,m,k,animales,grandezas,apertura,partes
 
     apertura=[]
     partes=[]
+
     in0=0##esta parte fue sacada de zooLineal.py
     in1=1
     in2=2
@@ -37,28 +38,45 @@ def crearPrueba(n,m,k,apertura,partes):#n,m,k,animales,grandezas,apertura,partes
             else:
                 in1+=1
                 in2=in1+1
-    return prueba
+    #prueba.append(apertura[::-1])
+    prueba.append(apertura)
 
-ani=[str(i+1) for i in reversed(range(30))]
-grandezas=[i+1 for i in reversed(range(30))]
-apertura=[]
-partes=[]
-aux=['0','0','0']
-au=0
-for i in range(10):
-    aux=[ani[i+au],ani[i+au+1],ani[i+au+2]]
-    partes.append(aux)
-    au+=2
-partes=[partes]
-print(partes)
+    in0=0#indice para recorrer las escenas de la apertura
+    for i in range(m - 1):#O(n)
+        parte=[]
+        for j in range(k):
+            parte.append(apertura[in0])
+            in0+=1
+            if(in0>len(apertura)):
+                in0=0
+        partes.append(parte)
+    #prueba.append(partes[::-1])
+    prueba.append(partes)
+    return prueba
+print(crearPrueba(8,3,3))
+print("sddddddddddddddddddddddddddddddddd")
 print("SSSSSSSSSSSSS")
-aux=[0,0,0]
-au=0
-for i in range(10):
-    aux=[ani[i+au],ani[i+au+1],ani[i+au+2]]
-    au+=2
-    apertura.append(aux)
+p=crearPrueba(40,200,200)
 aa = time.time()
-solLineal.solLineal(30,2,10,ani,grandezas,apertura,partes)
+solLineal.solLineal(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
 aa=time.time()-aa
 print(aa)
+
+co=100
+""" for i in range(10):
+    p=crearPrueba(100,100,co)
+    aa = time.time()
+    solLineal.solLineal(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
+    aa=time.time()-aa
+    co+=100
+    print(aa) """
+
+print("\n ahora las pruebas lineales")
+co=50
+for i in range(10):
+    p=crearPrueba(100,50,co)
+    aa = time.time()
+    solCuadratica.solCuadratica(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
+    aa=time.time()-aa
+    co+=50
+    print(aa)
