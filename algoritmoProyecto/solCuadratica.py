@@ -1,10 +1,23 @@
-def buscarAnimal(n,a):#buscar un animal en una lista de animales 
-    for i in range(len(a)):
-        if(n==a[i][1]):
-            return a[i]
-        
-CONTADOrDeOPERACIONES=0
-CONTADOrDeOPERACIONES+=1
+
+def sortAnim(s):
+    l=len(s)
+    countN=[0 for i in range(l)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
+    salida=[["None",0] for i in range(len(s))]
+    s=s[::-1]##solia organizar todo de forma ascendente, esta linea es mas simple que cambiar el resto del codigo
+    for i in range(len(s)):
+        sceneSize=s[i][1]
+        countN[sceneSize-1]+=1
+    acumulativa=countN[0]
+    for i in range(1,len(countN)):
+        countN[i]+=acumulativa
+        acumulativa=countN[i]
+    for i in range(len(countN)):
+        countN[i]=countN[i]-1
+    for i in range(len(s)):
+        sceneSize=s[i][1]
+        salida[countN[sceneSize-1]]=s[i]
+        countN[sceneSize-1]-=1
+    return salida
 
 def sortPartes(p,n,k):#otro algoritmo usando una variacion de counting-sort
     ###################afjañldfkjañslkdjñlfjñldfjalñsfkdjaslñdf. el problema es que ya estaba recorriendo un i, y cree otro rango con ese i, 3-4 horas xdxdxd
@@ -241,39 +254,43 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
     fullPartes=fullPartes[::-1]
     for i in range(1,len(fullResultado)):
         fullResultado[i]=fullPartes[i-1]
-    
-    partes=[[[["None",0],["None",0],["None",0]] for i in range(k)] for i in range(m-1)]
-    ii=0
-    for i in fullPartes:
-        for j in range(len(i)):
-            for o in range(3):
-                partes[ii][j][o]=i[j][o][0]
-        resultado.append(partes[ii])
-        ii+=1
 
     ####vamos a ver cual es el animal que mas participo
     ##ahora pondremos el fullResultado en forma de respuesta
-    fullAnimal=["animal",2]
     participaciones=0
+    animalado=[]
     for i in range(len(animales)):##len(n) si queremos ignorar animales que no apareceran
         if(participacionAnimal[i]==participaciones):
-            fullAnimal.append(buscarAnimal(i+1,animales))
+            animalado.append(i)
         elif(participacionAnimal[i]>participaciones):
-            fullAnimal=[buscarAnimal(i+1,animales)]
+            animalado=[i]
             participaciones=participacionAnimal[i]
+    auxx=[]
+    animales=sortAnim(animales)
+    for i in range(len(animalado)):##este bloque solo funciona porque organize los animales
+        auxx.append([animales[animalado[i]][0],animales[animalado[i]][1]])
     masParticipaciones=participaciones
-    animalQueMasParticipo=fullAnimal
+    animalQueMasParticipo=auxx
 
-    fullAnimal=[buscarAnimal(1,animales)]
+    animalPos=[]
     participaciones=participacionAnimal[0]
     for i in range(1,len(animales)):##len(n) si queremos ignorar animales que no apareceran
         if(participacionAnimal[i]==participaciones):
-            fullAnimal.append(buscarAnimal(i+1,animales))
+            animalPos.append(i)
         elif(participacionAnimal[i]<participaciones):
-            fullAnimal=[buscarAnimal(i+1,animales)]
+            animalPos=[i]
             participaciones=participacionAnimal[i]
+
+    fullAnimalito=[]
+    for i in range(len(animalPos)):##este bloque solo funciona porque organize los animales
+        fullAnimalito.append([animales[animalPos[i]][0],animales[animalPos[i]][1]])
+    animalQueMenosParticipo=fullAnimalito
     menosParticipaciones=participaciones
 
+    print("-------------estos son los animales que mas participaron con "+str(masParticipaciones)+" apariciones------------")
+    print(animalQueMasParticipo)
+    print("\n-------------estos son los animales que menos participaron con "+str(menosParticipaciones)+" apariciones------------")
+    print(animalQueMenosParticipo)
     """ print("El orden en el que se debe presentar el espectaculo es:")
     print(fullResultado[0])
     print("estas son el resto de las partes:")
@@ -296,7 +313,7 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
 
 solCuadratica(n,m,k,anim,grandezas,apert,partess)
 ########input 2
-n = 9
+""" n = 9
 m = 4
 k = 3
 anim = ["leon", "panteranegra", "cebra", "cocodrilo", "boa", "loro", "caiman", "tigre", "capibara"]
@@ -330,4 +347,4 @@ b=[[['bear', 'boar', 'cat'], ['bear', 'oso', 'dog'], ['bear', 'oso', 'cat'], ['b
  [['bear', 'tori', 'oso'], ['bear', 'bird', 'dog'], ['bear', 'tori', 'snake'], ['bear', 'boar', 'oso'], ['bear', 'bird', 'cat']],
  [['bear', 'bird', 'tori'], ['bear', 'bird', 'boar'], ['bear', 'bird', 'oso'], ['bear', 'tori', 'boar'], ['bear', 'bird', 'snake']]]
 b=b[::-1]
-solCuadratica(8,5,5,mioA,gran,a,b)
+solCuadratica(8,5,5,mioA,gran,a,b) """
