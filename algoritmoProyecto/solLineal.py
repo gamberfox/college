@@ -1,6 +1,3 @@
-
-
-        
 def sortAnim(s):
     l=len(s)
     countN=[0 for i in range(l)]#conteo no contendra un espacio para el 0 ya que no habra un animal de tamaño 0
@@ -92,7 +89,6 @@ def auxSortPart(s,n,p):#p sera la posicion que usaremos para organizar de forma 
         conteo[s[i][p][1]-1]-=1
 
     return salida
-aaa=[[['ant', 3], ['loro', 2], ['pig', 1]], [['hebi', 6], ['kuma', 5], ['bear', 4]], [['ant', 3], ['loro', 2], ['pig', 1]]]
 
 def sortPart(s,n):
     l=3*n-3
