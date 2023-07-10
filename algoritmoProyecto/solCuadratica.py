@@ -163,16 +163,11 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
         animales[i]=[anim[i],diccionario[anim[i]]]
     fullApertura=[]
     #partes = []#aqui se guardaran las escenas de las partes que siguen a la apertura
-    resultado=[]
     fullResultado=[]
     participacionAnimal=[0 for i in range(len(animales))]#aqui encontraremos el animal que mas participo.........len(n)
-    animalQueMasParticipo=[]########### y este sera su nombre
-    masParticipaciones=0
-    animalQueMenosParticipo=[]
-    menosParticipaciones=0
     smallScene=[]
     bigScene=[]
-    allSceneSizes=[0,0]
+    allSceneSizes=[0,0]#contador que se usara para calcular el promedio de las escenas
 
     fullAnimales=[]
     
@@ -181,7 +176,6 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
     indexAnimales2=2
     # Primera parte: (m - 1) * k escenas:   O(km   )
     for i in range((m - 1) * k):#O(n)
-        escena = []
         fullEscena=[]
 
         animal=[apert[i][0],diccionario[apert[i][0]]]
@@ -223,7 +217,6 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
     for i in range(len(fullApertura)):
         for j in range(3):
             apert[i][j]=fullApertura[i][j][0]
-    resultado.append(apertura)
     fullResultado.append(fullApertura)
 
     # el rest de  m - 1 partes: k escenas
@@ -270,6 +263,7 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
     auxx=[]
     animales=sortAnim(animales)
     for i in range(len(animalado)):##este bloque solo funciona porque organize los animales
+        #convertimos la lista de posiciones en una lista de animales
         auxx.append([animales[animalado[i]][0],animales[animalado[i]][1]])
     masParticipaciones=participaciones
     animalQueMasParticipo=auxx
@@ -285,6 +279,7 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
 
     fullAnimalito=[]
     for i in range(len(animalPos)):##este bloque solo funciona porque organize los animales
+        #convertimos la lista de posiciones en una lista de animales
         fullAnimalito.append([animales[animalPos[i]][0],animales[animalPos[i]][1]])
     animalQueMenosParticipo=fullAnimalito
     menosParticipaciones=participaciones
