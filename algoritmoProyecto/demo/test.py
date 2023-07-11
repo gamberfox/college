@@ -1,5 +1,5 @@
-import zooLineal
-import zooCuadratico
+import demo.zooLineal as zooLineal
+import demo.zooCuadratico as zooCuadratico
 import time
 
 #aa = time.time()

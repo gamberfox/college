@@ -61,7 +61,7 @@ tt=0
 mayor=0
 menor=10
 for i in range(10):
-    p=crearPrueba(100,50,150)
+    p=crearPrueba(100,50,100)
     aa = time.time()
     solLineal.solLineal(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
     aa=time.time()-aa
