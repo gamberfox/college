@@ -56,29 +56,46 @@ def crearPrueba(n,m,k):#n,m,k,animales,grandezas,apertura,partes
     prueba.append(partes)
     return prueba
 
-co=100
-""" for i in range(10):
-    p=crearPrueba(100,100,co)
+t=[i for i in range(10)]
+tt=0
+mayor=0
+menor=10
+for i in range(10):
+    p=crearPrueba(100,50,150)
     aa = time.time()
     solLineal.solLineal(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
     aa=time.time()-aa
-    co+=100
-    print(aa) """
-
-""" print("\n ahora las pruebas O(n a la 2)")
-co=50
-for i in range(10):
-    p=crearPrueba(100,50,co)
-    aa = time.time()
-    solCuadratica.solCuadratica(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
-    aa=time.time()-aa
-    co+=50
-    print(aa) """
-
-for i in range(10):
-    p=crearPrueba(100,50,300)
-    aa = time.time()
-    solCuadratica.solCuadratica(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
-    aa=time.time()-aa
-    co+=50
+    tt+=aa
+    if(aa<menor):
+        menor=aa
+    if(aa>mayor):
+        mayor=aa
     print(aa)
+print("_________________________")
+print(tt/10)
+print("\n mayor tiempo de ejecucion-------")
+print(mayor)
+print("\n menor tiempo de ejecucion-------")
+print(menor)
+
+""" t=[i for i in range(10)]
+tt=0
+mayor=0
+menor=10
+for i in range(10):
+    p=crearPrueba(100,50,50)
+    aa = time.time()
+    solCuadratica.solCuadratica(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
+    aa=time.time()-aa
+    tt+=aa
+    if(aa<menor):
+        menor=aa
+    if(aa>mayor):
+        mayor=aa
+    print(aa)
+print("_________________________")
+print(tt/10)
+print("\n mayor tiempo de ejecucion-------")
+print(mayor)
+print("\n menor tiempo de ejecucion-------")
+print(menor) """
