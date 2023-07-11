@@ -279,7 +279,8 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
     animalQueMenosParticipo=fullAnimalito
     menosParticipaciones=participaciones
 
-    """ print("El orden en el que se debe presentar el espectaculo es:")
+    """ 
+    print("El orden en el que se debe presentar el espectaculo es:")
     print(fullResultado[0])
     print("estas son el resto de las partes:")
     for i in range(1,len(fullResultado)):
@@ -295,13 +296,15 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
     print(smallScene[0])
     print("La escena de mayor grandeza total fue la escena: ")
     print(bigScene[0])
-    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1])) """
+    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
+ """
 
 
 
 solCuadratica(n,m,k,anim,grandezas,apert,partess)
 ########input 2
-""" n = 9
+""" 
+n = 9
 m = 4
 k = 3
 anim = ["leon", "panteranegra", "cebra", "cocodrilo", "boa", "loro", "caiman", "tigre", "capibara"]
