@@ -60,11 +60,11 @@ t=[i for i in range(10)]
 tt=0
 mayor=0
 menor=10
-for i in range(10):
+for i in range(10):##PRUEBAS LINEALES
     p=crearPrueba(100,50,50)
-    print(p[5])
     aa = time.time()
-    solLineal.solLineal(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
+    #solLineal.solLineal(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
+    solCuadratica.solCuadratica(p[0],p[1],p[2],p[3],p[4],p[5],p[6])
     aa=time.time()-aa
     tt+=aa
     if(aa<menor):

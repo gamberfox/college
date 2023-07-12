@@ -293,12 +293,9 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
     fullRevision=[]#con esto revisaremos que cada escena se repita solo dos veces
     for i in fullResultado:
         fullRevision.extend(i.copy())
-    print(fullRevision)
-    print("\n")
     fullRevision=sortPart(fullRevision,n)
-    print(fullRevision)
 
-    print("\n El orden en el que se debe presentar el espectaculo es:")
+    """ print("\n El orden en el que se debe presentar el espectaculo es:")
     print(fullResultado[0])
     print("estas son el resto de las partes:")
     for i in range(1,len(fullResultado)):
@@ -313,7 +310,7 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
     print(smallScene[0])
     print("La escena de mayor grandeza total fue la escena: ")
     print(bigScene[0])
-    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
+    print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1])) """
  
 solLineal(n,m,k,animales,grandezas,apert,partess)
 """ 
