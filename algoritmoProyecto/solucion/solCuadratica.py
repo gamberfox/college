@@ -298,6 +298,15 @@ def solCuadratica(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k
     animalQueMenosParticipo=fullAnimalito
     menosParticipaciones=participaciones
 
+
+    fullRevision=[]#con esto revisaremos que cada escena se repita solo dos veces
+    for i in fullResultado:
+        fullRevision.extend(i.copy())
+    print(fullRevision)
+    print("\n")
+    fullRevision=sortPart(fullRevision,n)
+    print(fullRevision)
+
     """ 
     print("El orden en el que se debe presentar el espectaculo es:")
     print(fullResultado[0])

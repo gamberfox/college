@@ -47,4 +47,24 @@ def checkResultado(r):
             return False
         i+=2
     return hayIncongruencia
-print(checkResultado(p))
+
+def checkCuadrado(r):
+    hayIncongruencia=False
+    i=3#usare este indice para recorrer cada segundo elemento de la lista, empezando por el cuarto elemento.
+    if(len(r)<2 or (len(r)%2)==1):
+        return False
+    if(r[i][0][1]==r[i-1][0][1] and r[i][1][1]==r[i-1][1][1] and r[i][2][1]==r[i-1][2][1]):
+        hayIncongruencia=True
+    else:
+        return False
+    
+    for i in range(len(r)):
+        ii=0
+        contador=0##con esto contaremos cuantas veces se repite una escena
+        for j in range(len(r)):
+            if(r[i][0][1]==r[j][0][1] and r[i][1][1]==r[j][1][1] and r[i][2][1]==r[j][2][1]):
+                contador+=1
+        if(not(contador==2)):
+            return False
+    return hayIncongruencia
+print(checkCuadrado(p))
