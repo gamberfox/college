@@ -124,6 +124,25 @@ def sortPart(s,n):
 def sizeScene(s):
     size=s[0][1]+s[1][1]+s[2][1]
     return size
+
+def checkResultado(r):
+    hayIncongruencia=False
+    i=3#usare este indice para recorrer cada segundo elemento de la lista, empezando por el cuarto elemento.
+    if(len(r)<2 or (len(r)%2)==1):
+        return False
+    if(r[i][0][1]==r[i-1][0][1] and r[i][1][1]==r[i-1][1][1] and r[i][2][1]==r[i-1][2][1]):
+        hayIncongruencia=True
+    else:
+        return False
+    
+    while(i<(len(r))):
+        if(not(r[i][0][1]==r[i-1][0][1] and r[i][1][1]==r[i-1][1][1] and r[i][2][1]==r[i-1][2][1])):
+            return False
+        if(r[i][0][1]==r[i-2][0][1] and r[i][1][1]==r[i-2][1][1] and r[i][2][1]==r[i-2][2][1]):
+            return False
+        i+=2
+    return hayIncongruencia
+
 #######################################################################################
 ############################################################################################################
 a = [0 for i in range(4)]#a = [str(i) for i in range(4)]
@@ -264,14 +283,21 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
         elif(participacionAnimal[i]<participaciones):
             animalPos=[i]
             participaciones=participacionAnimal[i]
-
     fullAnimalito=[]
     for i in range(len(animalPos)):##este bloque solo funciona porque organize los animales
         #convertimos la lista de posiciones en una lista de animales
         fullAnimalito.append([animales[animalPos[i]][0],animales[animalPos[i]][1]])
     animalQueMenosParticipo=fullAnimalito
     menosParticipaciones=participaciones
-    """ 
+    
+    fullRevision=[]#con esto revisaremos que cada escena se repita solo dos veces
+    for i in fullResultado:
+        fullRevision.extend(i.copy())
+    print(fullRevision)
+    print("\n")
+    fullRevision=sortPart(fullRevision,n)
+    print(fullRevision)
+
     print("\n El orden en el que se debe presentar el espectaculo es:")
     print(fullResultado[0])
     print("estas son el resto de las partes:")
@@ -288,7 +314,7 @@ def solLineal(n, m, k,anim,grandezas,apert,partess):#n animales, m partes, k esc
     print("La escena de mayor grandeza total fue la escena: ")
     print(bigScene[0])
     print("tamaño promedio de una escena:"+str(allSceneSizes[0]/allSceneSizes[1]))
- """
+ 
 solLineal(n,m,k,animales,grandezas,apert,partess)
 """ 
 ########input 2

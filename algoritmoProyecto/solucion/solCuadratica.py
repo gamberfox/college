@@ -125,6 +125,25 @@ def sortPart(s,n):
 def sizeScene(s):
     size=s[0][1]+s[1][1]+s[2][1]
     return size
+
+def checkResultado(r):
+    hayIncongruencia=False
+    i=3#usare este indice para recorrer cada segundo elemento de la lista, empezando por el cuarto elemento.
+    if(len(r)<2 or (len(r)%2)==1):
+        return False
+    if(r[i][0][1]==r[i-1][0][1] and r[i][1][1]==r[i-1][1][1] and r[i][2][1]==r[i-1][2][1]):
+        hayIncongruencia=True
+    else:
+        return False
+    
+    while(i<(len(r))):
+        if(not(r[i][0][1]==r[i-1][0][1] and r[i][1][1]==r[i-1][1][1] and r[i][2][1]==r[i-1][2][1])):
+            return False
+        if(r[i][0][1]==r[i-2][0][1] and r[i][1][1]==r[i-2][1][1] and r[i][2][1]==r[i-2][2][1]):
+            return False
+        i+=2
+    return hayIncongruencia
+
 #######################################################################################
 ############################################################################################################
 a = [0 for i in range(4)]#a = [str(i) for i in range(4)]
